@@ -32,7 +32,7 @@ public class MyPageService {
 
     @Transactional(readOnly = true) //내 입찰 전체 조회
     public ResponseDto<List<AuctionResponseDto>> myBid(Pageable pageable, Users user) {
-        Page<Auction> auctionPage = auctionRepository.findAllByBidListUser(pageable, user); //페이징
+        Page<Auction> auctionPage = auctionRepository.findByBidListUser(pageable, user); //페이징
         List<AuctionResponseDto> auctionResponseDtoList = auctionPage.getContent().stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Auctions Information", auctionResponseDtoList);
     }

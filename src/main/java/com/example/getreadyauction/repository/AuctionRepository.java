@@ -12,5 +12,5 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     Page<Auction> findAllByTitleContaining(Pageable pageable, String title);
 
     Page<Auction> findAllByUser(Pageable pageable, Users user); //내 경매 전체 조회
-    Page<Auction> findAllByBidListUser(Pageable pageable, Users user); //내 입찰 전체 조회
+    Page<Auction> findByBidListUser(Pageable pageable, Users user); //내 입찰 전체 조회
 }

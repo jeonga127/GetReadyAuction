@@ -66,4 +66,3 @@ public class AuctionService {
         return auctionRepository.findById(id).orElseThrow(() -> new NoSuchElementException("존재하지 않는 경매입니다."));
     }
 }
-
