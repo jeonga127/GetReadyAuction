@@ -1,5 +1,6 @@
 package com.example.getreadyauction.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class Auction extends Timstamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "auction_id")
     private Long id;
 
     @Column(nullable = false)
@@ -44,6 +47,11 @@ public class Auction extends Timstamped {
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy("createdAt desc")
+    private List<Bid> bidList;
+
     @Builder
     public Auction(String title, String category, String content, int minPrice, String deadline, Users user){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
@@ -62,4 +70,6 @@ public class Auction extends Timstamped {
     public void setCurrentPrice(int currentPrice){
         this.currentPrice = currentPrice;
     }
+
+    public void addBid(List<Bid> bidList){ this.bidList = bidList;}
 }
