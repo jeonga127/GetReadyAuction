@@ -25,7 +25,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtUtil {
 
-    public static final String ACCESS_HEADER = "ACCESS_HEADER";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private static final String BEARER_PREFIX = "Bearer ";
     private final UserDetailsServiceImpl userDetailsService;
@@ -57,11 +57,9 @@ public class JwtUtil {
                         .compact();
     }
 
-    // header 토큰을 가져오기
-    public String resolveToken(HttpServletRequest request) {
-        String resolveHeader = ACCESS_HEADER;
 
-        String bearerToken = request.getHeader(resolveHeader);
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
         }
