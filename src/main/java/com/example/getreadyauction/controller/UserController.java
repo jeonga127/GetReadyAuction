@@ -1,9 +1,8 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.LoginRequestDto;
-import com.example.getreadyauction.dto.ResponseDto;
-import com.example.getreadyauction.dto.ResponseLoginDto;
-import com.example.getreadyauction.dto.SignupRequestDto;
+import com.example.getreadyauction.dto.user.LoginRequestDto;
+import com.example.getreadyauction.dto.user.LoginResponseDto;
+import com.example.getreadyauction.dto.user.SignupRequestDto;
 import com.example.getreadyauction.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -34,13 +33,13 @@ public class UserController {
 
 
     @PostMapping("/signup")//회원가입
-    public ResponseLoginDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto, BindingResult bindingResult) {
+    public LoginResponseDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             StringBuilder st = new StringBuilder();
             for(FieldError fieldError: bindingResult.getFieldErrors()) {
                 st.append(fieldError.getDefaultMessage());
             }
-            return new ResponseLoginDto(st.toString(), HttpStatus.BAD_REQUEST);
+            return new LoginResponseDto(st.toString(), HttpStatus.BAD_REQUEST);
         }
         return userService.signup(signupRequestDto);
     }
@@ -49,7 +48,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/login")//로그인
-    public ResponseLoginDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         return userService.login(loginRequestDto, response);
 
     }

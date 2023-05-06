@@ -1,4 +1,4 @@
-package com.example.getreadyauction.dto;
+package com.example.getreadyauction.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;

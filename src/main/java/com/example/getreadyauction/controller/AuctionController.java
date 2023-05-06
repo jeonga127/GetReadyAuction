@@ -1,6 +1,10 @@
 package com.example.getreadyauction.controller;
 
 import com.example.getreadyauction.dto.*;
+import com.example.getreadyauction.dto.auction.AuctionAllResponseDto;
+import com.example.getreadyauction.dto.auction.AuctionCategoryDto;
+import com.example.getreadyauction.dto.auction.AuctionResponseDto;
+import com.example.getreadyauction.dto.auction.AuctionSearchDto;
 import com.example.getreadyauction.service.AuctionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
