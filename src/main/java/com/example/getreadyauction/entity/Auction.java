@@ -43,6 +43,9 @@ public class Auction extends Timestamped {
     @Column(nullable = false)
     private LocalDateTime deadline;
 
+    @Column(nullable = false)
+    private int bidSize;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
@@ -51,6 +54,7 @@ public class Auction extends Timestamped {
     @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("createdAt desc")
     private List<Bid> bidList;
+
 
     @Builder
     public Auction(String title, String category, String content, int minPrice, String deadline, Users user){
@@ -72,5 +76,7 @@ public class Auction extends Timestamped {
         this.currentPrice = currentPrice;
     }
 
-    public void addBid(List<Bid> bidList){ this.bidList = bidList;}
+    public void setBidList(List<Bid> bidList){ this.bidList = bidList; this.bidSize+=1;}
+
+
 }
