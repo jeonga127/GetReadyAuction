@@ -1,4 +1,4 @@
-package com.example.getreadyauction.dto;
+package com.example.getreadyauction.dto.auction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

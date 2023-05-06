@@ -1,4 +1,4 @@
-package com.example.getreadyauction.dto;
+package com.example.getreadyauction.dto.user;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

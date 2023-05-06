@@ -1,5 +1,6 @@
 package com.example.getreadyauction.entity;
 
+import com.example.getreadyauction.dto.AuctionRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -57,15 +58,15 @@ public class Auction extends Timestamped {
 
 
     @Builder
-    public Auction(String title, String category, String content, int minPrice, String deadline, Users user){
+    public Auction(AuctionRequestDto auctionRequestDto, Users user){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
 
-        this.title = title;
-        this.category = category;
-        this.content = content;
-        this.minPrice = minPrice;
-        this.currentPrice = minPrice;
-        this.deadline = LocalDateTime.parse(deadline,formatter);
+        this.title = auctionRequestDto.getTitle();
+        this.category = auctionRequestDto.getCategory();
+        this.content = auctionRequestDto.getContent();
+        this.minPrice = auctionRequestDto.getMinPrice();
+        this.currentPrice = auctionRequestDto.getMinPrice();
+        this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
         this.isDone = false;
         this.views = 0;
         this.bidSize = 0;
@@ -75,8 +76,28 @@ public class Auction extends Timestamped {
     public void setCurrentPrice(int currentPrice){
         this.currentPrice = currentPrice;
     }
-
+    public void setIsDone(LocalDateTime now){ this.isDone = now.isAfter(this.deadline); }
     public void setBidList(List<Bid> bidList){ this.bidList = bidList; this.bidSize+=1;}
+    public void setView() { this.views += 1; }
+
+    public void Edit(AuctionRequestDto auctionRequestDto) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
+        this.title = auctionRequestDto.getTitle();
+        this.category = auctionRequestDto.getCategory();
+        this.content = auctionRequestDto.getContent();
+        this.minPrice = auctionRequestDto.getMinPrice();
+        this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
+    }
+
+    public void Up(Auction auction){
+        this.title = auction.getTitle();
+        this.category = auction.getCategory();
+        this.content = auction.getContent();
+        this.minPrice = auction.getMinPrice();
+        this.deadline = auction.getDeadline();
+    }
+
+
 
 
 }

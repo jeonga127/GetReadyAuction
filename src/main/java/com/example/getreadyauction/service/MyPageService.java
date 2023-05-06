@@ -1,7 +1,8 @@
 package com.example.getreadyauction.service;
 
-import com.example.getreadyauction.dto.AuctionResponseDto;
+
 import com.example.getreadyauction.dto.ResponseDto;
+import com.example.getreadyauction.dto.auction.AuctionResponseDto;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
 import com.example.getreadyauction.entity.Users;

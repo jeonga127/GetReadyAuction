@@ -1,4 +1,4 @@
-package com.example.getreadyauction.dto;
+package com.example.getreadyauction.dto.auction;
 
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;

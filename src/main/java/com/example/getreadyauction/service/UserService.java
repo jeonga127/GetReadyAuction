@@ -1,12 +1,10 @@
 package com.example.getreadyauction.service;
 
-import com.example.getreadyauction.dto.LoginRequestDto;
-import com.example.getreadyauction.dto.ResponseDto;
-import com.example.getreadyauction.dto.ResponseLoginDto;
-import com.example.getreadyauction.dto.SignupRequestDto;
+import com.example.getreadyauction.dto.user.LoginRequestDto;
+import com.example.getreadyauction.dto.user.LoginResponseDto;
+import com.example.getreadyauction.dto.user.SignupRequestDto;
 import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.jwt.JwtUtil;
-import com.example.getreadyauction.repository.UsersRepository;
 import com.example.getreadyauction.repository.UsersRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +27,7 @@ public class UserService {
 
 
     @Transactional
-    public ResponseLoginDto signup(SignupRequestDto signupRequestDto) {
+    public LoginResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
@@ -44,12 +42,12 @@ public class UserService {
         Users user = new Users(username, password);
         usersRepository.save(user);
 
-        return new ResponseLoginDto("회원가입 성공", HttpStatus.OK);
+        return new LoginResponseDto("회원가입 성공", HttpStatus.OK);
     }
 
 
     @Transactional(readOnly = true)
-    public ResponseLoginDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public LoginResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -63,7 +61,7 @@ public class UserService {
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));//addHeader를 사용해 Header쪽에 값을 넣어줄 수 있음(?)(유저이름과 유저 권한을 넣어줌(?))
-        return new ResponseLoginDto("로그인 성공", HttpStatus.OK);
+        return new LoginResponseDto("로그인 성공", HttpStatus.OK);
 
     }//jwt 구현하기 9(from UserController)//이후 의존성 주입을 위해 동일 부분에서 작업(UserService)//ResponseHeader에 토큰보내기 파트
 

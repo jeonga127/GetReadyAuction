@@ -1,7 +1,8 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.AuctionResponseDto;
+
 import com.example.getreadyauction.dto.ResponseDto;
+import com.example.getreadyauction.dto.auction.AuctionResponseDto;
 import com.example.getreadyauction.security.UserDetailsImpl;
 import com.example.getreadyauction.service.MyPageService;
 import lombok.RequiredArgsConstructor;
