@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Auction extends Timestamped {
+public class Auction extends Timstamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
