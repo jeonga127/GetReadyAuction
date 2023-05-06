@@ -7,7 +7,7 @@
 ###  <a href="https://ibb.co/7jb3jrp"><img src="https://i.ibb.co/ZGNQGcg/image.png" alt="image" border="0"></a><br /><a target='_blank' href='https://dedupelist.com/'></a><br />
 
 ### ERD 설계 
-### <a href="https://ibb.co/kKxrk31"><img src="https://i.ibb.co/zsrLj8J/Get-Ready-Auction-ERD.png" alt="Get-Ready-Auction-ERD" border="0"></a><br /><a target='_blank' href='https://dedupelist.com/'></a><br />
+### <a href="https://ibb.co/k42K1Kc"><img src="https://i.ibb.co/sK9jHj3/image.png" alt="image" border="0"></a>
 
 ### API 명세
 ### <a href="https://ibb.co/X4QqHRL"><img src="https://i.ibb.co/Qcg40wQ/image.png" alt="image" border="0"></a><br /><a target='_blank' href='https://dedupelist.com/'></a>
