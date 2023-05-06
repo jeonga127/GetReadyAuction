@@ -2,8 +2,6 @@ package com.example.getreadyauction.dto.auction;
 
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
-import com.example.getreadyauction.entity.Users;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -15,6 +15,10 @@ public class Bid extends Timestamped{
     @Column(name = "bid_id")
     Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
+
     private int price;
 
     @JsonBackReference
