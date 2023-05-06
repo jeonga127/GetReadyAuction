@@ -26,9 +26,6 @@ public class Bid extends Timestamped{
     @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
 
     public Bid(BidRequestDto bidRequestDto, Users user, Auction auction) {
         this.price = bidRequestDto.getPrice();
