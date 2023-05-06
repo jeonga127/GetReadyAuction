@@ -57,8 +57,8 @@ public class AuctionService {
             else if (o1.getPrice() > o2.getPrice())
                 return -1;
             else return 0;
-        });
-        List<Bid> topBidList = tmpList.stream().skip(3).limit(3).collect(Collectors.toList());
+        }); //내림차순
+        List<Bid> topBidList = tmpList.stream().skip(3).limit(3).collect(Collectors.toList()); //위에서 3개만 자른다.
         return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, topBidList));
     }
 

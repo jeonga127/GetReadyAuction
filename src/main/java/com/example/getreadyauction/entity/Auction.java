@@ -64,6 +64,7 @@ public class Auction extends Timestamped {
         this.deadline = LocalDateTime.parse(deadline,formatter);
         this.isDone = false;
         this.views = 0;
+        this.bidSize = 0;
         this.user = user;
     }
 
