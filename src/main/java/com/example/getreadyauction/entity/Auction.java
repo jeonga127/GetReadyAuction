@@ -72,4 +72,5 @@ public class Auction extends Timestamped {
     }
     public void setIsDone(LocalDateTime now){ this.isDone = now.isAfter(this.deadline); }
     public void addBid(List<Bid> bidList){ this.bidList = bidList;}
+    public void setView() { this.views += 1; }
 }

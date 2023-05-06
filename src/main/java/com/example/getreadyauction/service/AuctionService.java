@@ -53,6 +53,7 @@ public class AuctionService {
         });
         List<Bid> topBidList = tmpList.stream().skip(3).limit(3).collect(Collectors.toList());
         auction.setIsDone(LocalDateTime.now());
+        auction.setView();
         return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, topBidList));
     }
 
