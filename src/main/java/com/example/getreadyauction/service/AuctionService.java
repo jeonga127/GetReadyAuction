@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,13 +47,12 @@ public class AuctionService {
         Auction auction = validateAuction(id);
         List<Bid> tmpList = new ArrayList<>(List.copyOf(auction.getBidList()));
         tmpList.sort((o1, o2) -> {
-            if (o1.getPrice() < o2.getPrice())
-                return 1;
-            else if (o1.getPrice() > o2.getPrice())
-                return -1;
+            if (o1.getPrice() < o2.getPrice()) return 1;
+            else if (o1.getPrice() > o2.getPrice()) return -1;
             else return 0;
         });
         List<Bid> topBidList = tmpList.stream().skip(3).limit(3).collect(Collectors.toList());
+        auction.setIsDone(LocalDateTime.now());
         return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, topBidList));
     }
 

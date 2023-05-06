@@ -70,6 +70,6 @@ public class Auction extends Timestamped {
     public void setCurrentPrice(int currentPrice){
         this.currentPrice = currentPrice;
     }
-
+    public void setIsDone(LocalDateTime now){ this.isDone = now.isAfter(this.deadline); }
     public void addBid(List<Bid> bidList){ this.bidList = bidList;}
 }
