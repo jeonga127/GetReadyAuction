@@ -44,11 +44,6 @@ public class AuctionController {
         return auctionService.getDetailedAuctions(id);
     }
 
-    @GetMapping("/search")
-    public ResponseDto getSearchedAuctions(@RequestBody AuctionSearchDto auctionSearchDto){
-        return auctionService.getSearchedAuction(auctionSearchDto);
-    }
-
     @PostMapping("/add")
     public ResponseDto postAddAuction(@RequestBody AuctionRequestDto auctionAddRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return auctionService.postAddAuction(auctionAddRequestDto, userDetails.getUser());

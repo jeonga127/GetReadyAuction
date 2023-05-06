@@ -16,6 +16,7 @@ import com.example.getreadyauction.dto.auction.AuctionResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionSearchDto;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
+import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,11 +32,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class AuctionService {
-
-    private final AuctionRepository auctionRepository;
-
-    public ResponseDto getAllAuctions() {
-        return null;
 
     private final AuctionRepository auctionRepository;
 
