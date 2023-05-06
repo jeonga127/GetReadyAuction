@@ -52,7 +52,7 @@ public class BidService {
         }
 
         if (biddingFind.isPresent() && bidRequestDto.getPrice() > biddingExist.get().getPrice()) { // 내가 입찰을 이미 했고 또 기존 입찰가격보다 더 큰 값을 적었을때
-            Bid editbid = new Bid(); // 빈 객체 만들어주고
+            Bid editbid = biddingFind.get(); // 찾은 값 가져와서
             editbid.Edit(bidRequestDto);  // 수정값을 담아서 수정함
             return ResponseDto.setSuccess("입찰가 변경!", null);
         } else {
