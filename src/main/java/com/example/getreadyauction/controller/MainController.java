@@ -16,7 +16,7 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/main/v")
-    public ResponseDto main(Pageable pageable){
+    public ResponseDto mainVew(Pageable pageable){
         return mainService.mainView(pageable);
     }
 
