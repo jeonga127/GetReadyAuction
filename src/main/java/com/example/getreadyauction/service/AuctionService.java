@@ -1,15 +1,7 @@
 package com.example.getreadyauction.service;
 
-import com.example.getreadyauction.dto.AuctionCategoryDto;
 import com.example.getreadyauction.dto.AuctionRequestDto;
-import com.example.getreadyauction.dto.AuctionSearchDto;
 import com.example.getreadyauction.dto.ResponseDto;
-import com.example.getreadyauction.entity.Auction;
-import com.example.getreadyauction.entity.Users;
-import com.example.getreadyauction.repository.AuctionRepository;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import com.example.getreadyauction.dto.*;
 import com.example.getreadyauction.dto.auction.AuctionAllResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionCategoryDto;
 import com.example.getreadyauction.dto.auction.AuctionResponseDto;
@@ -19,16 +11,17 @@ import com.example.getreadyauction.entity.Bid;
 import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @RequiredArgsConstructor
 @Transactional
 public class AuctionService {

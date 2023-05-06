@@ -1,11 +1,8 @@
 package com.example.getreadyauction.controller;
 
 import com.example.getreadyauction.dto.AuctionRequestDto;
-import com.example.getreadyauction.dto.AuctionCategoryDto;
-import com.example.getreadyauction.dto.AuctionSearchDto;
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.security.UserDetailsImpl;
-import com.example.getreadyauction.dto.*;
 import com.example.getreadyauction.dto.auction.AuctionAllResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionCategoryDto;
 import com.example.getreadyauction.dto.auction.AuctionResponseDto;
