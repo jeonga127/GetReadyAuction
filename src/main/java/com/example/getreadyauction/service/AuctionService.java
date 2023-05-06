@@ -17,7 +17,6 @@ public class AuctionService {
 
     private final AuctionRepository auctionRepository;
 
-
     public ResponseDto getAllAuctions() {
         return null;
     }
