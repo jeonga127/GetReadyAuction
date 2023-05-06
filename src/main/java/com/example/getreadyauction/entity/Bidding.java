@@ -1,5 +1,6 @@
 package com.example.getreadyauction.entity;
 
+import com.example.getreadyauction.dto.BiddingRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,14 @@ public class Bidding extends Timestamped {
     @ManyToOne
     @JoinColumn(name = "auction_id")
     private Auction auction;
+
+    public Bidding(BiddingRequestDto biddingRequestDto, Users user, Auction auction) {
+        this.price = biddingRequestDto.getPrice();
+        this.user = user;
+        this.auction = auction;
+    }
+
+    public void Edit(BiddingRequestDto biddingRequestDto){
+        this.price = biddingRequestDto.getPrice();
+    }
 }

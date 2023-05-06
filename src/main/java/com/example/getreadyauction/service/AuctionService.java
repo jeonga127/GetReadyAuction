@@ -34,14 +34,14 @@ public class AuctionService {
         return null;
     }
 
-    public ResponseDto postAddAuction(AuctionRequestDto auctionRequestDto, Users users){
+    public ResponseDto postAddAuction(AuctionRequestDto auctionRequestDto, Users users){ // 물품 등록
         Auction auction = new Auction(auctionRequestDto, users);
         auctionRepository.saveAndFlush(auction);
         return ResponseDto.setSuccess("물품이 등록되었습니다", null);
     }
 
     @Transactional
-    public ResponseDto putEditAuction(Long id, AuctionRequestDto auctionRequestDto, Users users){
+    public ResponseDto putEditAuction(Long id, AuctionRequestDto auctionRequestDto, Users users){ //물품 수정
         Auction auction = auctionRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("존재하지 않는 물품입니다")  // null 처리
         );
@@ -52,7 +52,7 @@ public class AuctionService {
         return ResponseDto.setSuccess("물품이 수정되었습니다", null);
     }
     @Transactional
-    public ResponseDto putUpAuction(Long id, Users users){
+    public ResponseDto putUpAuction(Long id, Users users){ // 끌올
         Auction auction = auctionRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("존재하지 않는 물품입니다.") // null 처리
         );
@@ -64,7 +64,7 @@ public class AuctionService {
     }
 
     @Transactional
-    public ResponseDto delAuction(Long id, Users users){
+    public ResponseDto delAuction(Long id, Users users){ // 물품 삭제
         Auction auction = auctionRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("존재하지 않는 물품입니다.") // null 처리
         );
