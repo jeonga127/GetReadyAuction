@@ -14,12 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -62,15 +60,6 @@ public class AuctionService {
         });
         List<Bid> topBidList = tmpList.stream().skip(3).limit(3).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, topBidList));
-    }
-
-    @Transactional(readOnly = true) //실시간 전체 조회
-    public ResponseDto<AuctionResponseDto> getNowAllAuction(){
-        List<Views> viewsList = viewsRepository.findAllByOrderByCreatedAtDesc.stream().map(ResponseDto::new).collect(Collectors.toList());
-        List<Deadline> deadlineList = deadlineRepository.findAllByOrderByCreatedAtDesc.stream().map(ResponseDto::new).collect(Collectors.toList());
-        List<Bid> countbid = bidRepository.findAllByOrderByCreatedAtDesc().stream().map(ResponseDto::new).collect(Collectors.toList());
-
-        return ResponseDto.setSuccess("Succedd", AuctionResponseDto);
     }
 
     public Auction validateAuction(Long id){

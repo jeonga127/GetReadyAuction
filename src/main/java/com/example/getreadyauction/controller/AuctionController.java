@@ -35,9 +35,4 @@ public class AuctionController {
     public ResponseDto<AuctionAllResponseDto> getDetailedAuctions(@PathVariable Long id){
         return auctionService.getDetailedAuctions(id);
     }
-
-    @GetMapping("/search")
-    public ResponseDto getSearchedAuctions(@RequestBody AuctionSearchDto auctionSearchDto){
-        return auctionService.getSearchedAuction(auctionSearchDto);
-    }
 }
