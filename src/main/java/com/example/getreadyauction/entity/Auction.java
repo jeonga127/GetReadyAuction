@@ -1,6 +1,6 @@
 package com.example.getreadyauction.entity;
 
-import com.example.getreadyauction.dto.AuctionRequestDto;
+import com.example.getreadyauction.dto.auction.AuctionRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
