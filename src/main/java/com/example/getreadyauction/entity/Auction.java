@@ -49,12 +49,12 @@ public class Auction extends Timestamped {
     public Auction(AuctionRequestDto auctionRequestDto, Users user){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
 
-        this.title = title;
-        this.category = category;
-        this.content = content;
-        this.minPrice = minPrice;
-        this.currentPrice = minPrice;
-        this.deadline = LocalDateTime.parse(deadline,formatter);
+        this.title = auctionRequestDto.getTitle();
+        this.category = auctionRequestDto.getCategory();
+        this.content = auctionRequestDto.getContent();
+        this.minPrice = auctionRequestDto.getMinPrice();
+        this.currentPrice = auctionRequestDto.getMinPrice();
+        this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
         this.isDone = false;
         this.views = 0;
         this.user = user;
@@ -65,11 +65,12 @@ public class Auction extends Timestamped {
     }
 
     public void Edit(AuctionRequestDto auctionRequestDto) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
         this.title = auctionRequestDto.getTitle();
         this.category = auctionRequestDto.getCategory();
         this.content = auctionRequestDto.getContent();
         this.minPrice = auctionRequestDto.getMinPrice();
-        this.deadline = auctionRequestDto.getDeadline();
+        this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
     }
 
     public void Up(Auction auction){

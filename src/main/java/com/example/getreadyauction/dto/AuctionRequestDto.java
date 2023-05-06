@@ -15,6 +15,6 @@ public class AuctionRequestDto {
     private String category;
     private String content;
     private Integer minPrice;
-    private LocalDateTime deadline;
+    private String deadline;
 
 }
