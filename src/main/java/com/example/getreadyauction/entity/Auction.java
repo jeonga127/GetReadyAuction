@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Auction extends Timestamped {
     @Id
@@ -89,15 +91,8 @@ public class Auction extends Timestamped {
         this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
     }
 
-    public void Up(Auction auction){
-        this.title = auction.getTitle();
-        this.category = auction.getCategory();
-        this.content = auction.getContent();
-        this.minPrice = auction.getMinPrice();
-        this.deadline = auction.getDeadline();
+    public void Up(){
+        LocalDateTime now = LocalDateTime.now();
+        this.setModifiedAt(now);
     }
-
-
-
-
 }
