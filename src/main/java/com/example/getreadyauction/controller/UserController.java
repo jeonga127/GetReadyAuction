@@ -47,7 +47,14 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/login")//로그인
-    public LoginResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public LoginResponseDto login(@Valid @RequestBody LoginRequestDto loginRequestDto, BindingResult bindingResult ,HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder st = new StringBuilder();
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                st.append(fieldError.getDefaultMessage());
+            }
+            return new LoginResponseDto(st.toString(), HttpStatus.BAD_REQUEST);
+        }
         return userService.login(loginRequestDto, response);
 
     }
