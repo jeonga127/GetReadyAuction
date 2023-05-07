@@ -37,15 +37,15 @@ public class BidService {
 
         if (biddingExist.isEmpty()) { // 물품에 입찰이 아무것도 없을때
             if (bidRequestDto.getPrice() >= auction.getMinPrice()) { // 최소입찰가격과 같거나 크다면 입찰 가능하도록
-                bidRepository.saveAndFlush(new Bid(bidRequestDto, users, auction));
+                bidRepository.saveAndFlush(new Bid(bidRequestDto, users, auction)); // 클라이언트의 첫 입찰이니 저장하도록
                 return ResponseDto.setSuccess("입찰 성공!", null);
             } else {
                 throw new IllegalArgumentException("최소 입찰가 이상의 금액을 입력해주세요");
             }
-        } else if (biddingFind.isEmpty() && (bidRequestDto.getPrice() > biddingExist.get(0).getPrice())) { // 물품에 입찰이 없다는 로직이 통과되면 물품에 입찰이 무조건 있다는 것이기에 다음과 같은 로직 수행
-            bidRepository.saveAndFlush(new Bid(bidRequestDto, users, auction));
+        } else if (biddingFind.isEmpty() && (bidRequestDto.getPrice() > biddingExist.get(0).getPrice())) { // 물품에 입찰이 없다는 로직이 통과되면 물품에 입찰이 무조건 있다는 것이고 클라이언트 입찰은 없을때 다음과 같은 로직 수행
+            bidRepository.saveAndFlush(new Bid(bidRequestDto, users, auction)); // 물품에 입찰은 있는데 클라이언트는 첫 입찰이므로 저장
             return ResponseDto.setSuccess("입찰 성공!", null);
-        } else if ((bidRequestDto.getPrice() > biddingExist.get(0).getPrice())) {
+        } else if ((bidRequestDto.getPrice() > biddingExist.get(0).getPrice())) { // 아니라면 클라이언트 입찰이 있다는 것이기에 요청값과 물품에 등록된 수정순으로 정렬된 입찰가격 중 0번째 가져옴
             Bid editbid = biddingFind.get(); // 찾은 값 가져와서
             editbid.Edit(bidRequestDto);  // 수정값을 담아서 수정함
             return ResponseDto.setSuccess("입찰가 변경!", null);
