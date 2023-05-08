@@ -14,23 +14,9 @@ public class MainController {
 
     private final MainService mainService;
 
-//    @GetMapping("/main")  //하나로 합친 것
-//    public ResponseDto mainVew(Pageable pageable){
-//        return mainService.mainView(pageable);
-//    }
-
-    @GetMapping("/main/v")  //조회수 기준 실시간 경매리스트
-    public ResponseDto mainVew(Pageable pageable){
-        return mainService.mainView(pageable);
+    @GetMapping("/main")  //하나로 합친 것
+    public ResponseDto main(String orderBy, Pageable pageable){
+        return mainService.main(orderBy, pageable);
     }
 
-    @GetMapping("/main/d") //마감임박 기준 실시간 경매리스트
-    public ResponseDto mainDeadline(Pageable pageable){
-        return mainService.mainDeadline(pageable);
-    }
-
-    @GetMapping("/main/c") //마감임박 기준 실시간 경매리스트
-    public ResponseDto mainCount(Pageable pageable){
-        return mainService.mainCount(pageable);
-    }
 }
