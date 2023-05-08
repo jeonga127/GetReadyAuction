@@ -17,6 +17,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     Page<Auction>findAllByOrderByDeadlineAsc(Pageable pageable); //deadline 기준 오름차순
 
-    Page<Auction> findAllByOrderByBidSizeAsc(Pageable pageable); //입찰이 많이 된 기준 오름차순
+    Page<Auction> findAllByOrderByBidSizeDesc(Pageable pageable); //입찰이 많이 된 기준 오름차순
 
 }

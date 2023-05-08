@@ -32,17 +32,14 @@ public class MainService {
     @Transactional(readOnly = true) //마감임박 기준 실시간 경매리스트
     public ResponseDto<List<MainAuctionDto>> mainDeadline( Pageable pageable) {
         List<Auction> auctionList = auctionRepository.findAllByOrderByDeadlineAsc(pageable).getContent();
-        List<MainAuctionDto> mainAuctionDto = auctionList
-                .stream()
-                .map(MainAuctionDto::new)
-                .collect(Collectors.toList());
+        List<MainAuctionDto> mainAuctionDto = auctionList.stream().map(MainAuctionDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
     }
 
 
-    @Transactional(readOnly = true) //마감임박 기준 실시간 경매리스트
+    @Transactional(readOnly = true) //입찰이 많이 된 기준 실시간 경매리스트
     public ResponseDto<List<MainAuctionDto>> mainCount( Pageable pageable) {
-        List<Auction> auctionList = auctionRepository.findAllByOrderByBidSizeAsc(pageable).getContent();
+        List<Auction> auctionList = auctionRepository.findAllByOrderByBidSizeDesc(pageable).getContent();
         List<MainAuctionDto> mainAuctionDto = auctionList.stream().map(MainAuctionDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
     }
@@ -57,7 +54,7 @@ public class MainService {
 //        } else if (orderBy.equals("count")) {
 //            auctionList = auctionRepository.findAllByOrderByBidSizeAsc(pageable).getContent();
 //        } else {
-//            throw new IllegalArgumentException("Invalid orderBy value: " + orderBy);
+//            throw new IllegalArgumentException();
 //        }
 //        List<MainAuctionDto> mainAuctionDto = auctionList.stream().map(MainAuctionDto::new).collect(Collectors.toList());
 //        return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
