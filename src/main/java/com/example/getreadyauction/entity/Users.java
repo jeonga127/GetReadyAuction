@@ -16,11 +16,9 @@ public class Users {
     @Column(nullable = false, unique = true)
     private String username;
 
-
     @Column(nullable = false)
     @JsonIgnore
     private String password;
-
 
     public Users(String username, String password) {
         this.username = username;

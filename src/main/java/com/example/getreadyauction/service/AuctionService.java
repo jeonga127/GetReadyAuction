@@ -26,7 +26,7 @@ public class AuctionService {
 
     @Transactional(readOnly = true)
     public ResponseDto<List<AuctionResponseDto>> getAllAuctions(Pageable pageable) {
-        List<Auction> auctionList = auctionRepository.findAllByOrderByModifiedAtDesc(pageable).getContent();
+        List<Auction> auctionList = auctionRepository.findAllByOrderByCreatedAtDesc(pageable).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Auctions Information", auctionResponseDtoList);
     }
@@ -67,7 +67,7 @@ public class AuctionService {
     public ResponseDto putEditAuction(Long id, AuctionRequestDto auctionRequestDto, Users users) { // 수정 서비스
         Auction auction = validateAuction(id); // 중복된 메서드는 공통 메서드 처리
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
-            auction.Edit(auctionRequestDto); // 맞으면 수정해줌
+            auction.edit(auctionRequestDto); // 맞으면 수정해줌
         } else
             throw new IllegalArgumentException("권한이 없습니다"); // id 다르면 던져줌
         return ResponseDto.setSuccess("물품이 수정되었습니다", null);
@@ -77,7 +77,7 @@ public class AuctionService {
     public ResponseDto putUpAuction(Long id, Users users) { // 끌올
         Auction auction = validateAuction(id); // 중복된 메서드는 공통 메서드 처리
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
-            auction.Up();  // 맞으면 그냥 담아온 값을 고대로 반영
+            auction.up();  // 맞으면 그냥 담아온 값을 고대로 반영
         } else
             throw new IllegalArgumentException("권한이 없습니다"); // id가 다르면 던져줌
         return ResponseDto.setSuccess("끌어 올려졌습니다!", null);

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BidRepository extends JpaRepository<Bid, Long> {
-
     Optional<Bid> findByAuctionAndUser(Auction auction, Users users);
     List<Bid> findByAuctionOrderByModifiedAtDesc(Auction auction);
 }

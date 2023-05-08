@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class MainService {
 
-
     private final AuctionRepository auctionRepository;
 
     @Transactional(readOnly = true) //조회수 기준 실시간 경매리스트
@@ -27,7 +26,6 @@ public class MainService {
         List<AuctionResponseDto> mainAuctionDto = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
     }
-
 
     @Transactional(readOnly = true) //마감임박 기준 실시간 경매리스트
     public ResponseDto<List<AuctionResponseDto>> mainDeadline( Pageable pageable) {
@@ -59,5 +57,4 @@ public class MainService {
 //        List<MainAuctionDto> mainAuctionDto = auctionList.stream().map(MainAuctionDto::new).collect(Collectors.toList());
 //        return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
 //    }
-
 }

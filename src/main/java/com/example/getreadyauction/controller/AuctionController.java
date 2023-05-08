@@ -27,6 +27,7 @@ public class AuctionController {
     public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, @RequestBody AuctionCategoryRequestDto auctionCategoryRequestDto){
         return auctionService.getCategorizedAuctions(pageable, auctionCategoryRequestDto);
     }
+
     @GetMapping("/search")
     public ResponseDto<List<AuctionResponseDto>> getSearchedAuctions(Pageable pageable, @RequestBody AuctionSearchRequestDto auctionSearchRequestDto){
         return auctionService.getSearchedAuction(pageable, auctionSearchRequestDto);
