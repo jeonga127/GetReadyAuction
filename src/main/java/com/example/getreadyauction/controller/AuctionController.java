@@ -42,12 +42,12 @@ public class AuctionController {
         return auctionService.postAddAuction(auctionAddRequestDto, userDetails.getUser());
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/edit/{id}") //경매 수정
     public ResponseDto putEditAuction(@PathVariable Long id,@RequestBody AuctionRequestDto auctionAddRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return auctionService.putEditAuction(id, auctionAddRequestDto, userDetails.getUser());
     }
 
-    @PutMapping("/up/{id}")
+    @PutMapping("/up/{id}") //경매 끌올
     public ResponseDto putUpAuction(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return auctionService.putUpAuction(id, userDetails.getUser());
     }

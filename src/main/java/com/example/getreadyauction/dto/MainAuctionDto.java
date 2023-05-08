@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class MainAuctionDto {
-
+    private Long id;
     private String title;
     private String category;
     private int currentPrice;
@@ -17,6 +17,7 @@ public class MainAuctionDto {
 
 
     public MainAuctionDto(Auction action) {
+        this.id = action.getId();
         this.title = action.getTitle();
         this.category = action.getCategory();
         this.currentPrice = action.getCurrentPrice();

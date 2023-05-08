@@ -7,7 +7,6 @@ import com.example.getreadyauction.entity.Bid;
 import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class AuctionService {
 
     private final AuctionRepository auctionRepository;
