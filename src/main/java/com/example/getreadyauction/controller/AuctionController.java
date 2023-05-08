@@ -1,19 +1,13 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.auction.AuctionRequestDto;
 import com.example.getreadyauction.dto.ResponseDto;
+import com.example.getreadyauction.dto.auction.*;
 import com.example.getreadyauction.security.UserDetailsImpl;
-import com.example.getreadyauction.dto.auction.AuctionAllResponseDto;
-import com.example.getreadyauction.dto.auction.AuctionCategoryDto;
-import com.example.getreadyauction.dto.auction.AuctionResponseDto;
-import com.example.getreadyauction.dto.auction.AuctionSearchDto;
 import com.example.getreadyauction.service.AuctionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 import java.util.List;
 

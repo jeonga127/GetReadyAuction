@@ -4,6 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class BidRequestDto {
-
-    private Integer price;
+    private int price;
 }

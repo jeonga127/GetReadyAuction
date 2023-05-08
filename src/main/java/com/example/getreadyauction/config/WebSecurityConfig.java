@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                 .httpBasic().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests()
-                .requestMatchers("/user/**","/main").permitAll()
+                .requestMatchers("/user/**","/main/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/auction/**").permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()

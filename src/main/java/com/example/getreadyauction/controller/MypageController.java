@@ -1,6 +1,5 @@
 package com.example.getreadyauction.controller;
 
-
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionResponseDto;
 import com.example.getreadyauction.security.UserDetailsImpl;
@@ -26,9 +25,9 @@ public class MypageController {
         return myPageService.myAuctions(pageable, userDetails.getUser());
     }
 
+
     @GetMapping("/bidding") //내 입찰 전체 조회
     public ResponseDto<List<AuctionResponseDto>> myBid(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return myPageService.myBid(pageable, userDetails.getUser());
     }
-
 }
