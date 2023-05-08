@@ -1,14 +1,13 @@
 package com.example.getreadyauction.service;
 
+import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.user.LoginRequestDto;
-import com.example.getreadyauction.dto.user.LoginResponseDto;
 import com.example.getreadyauction.dto.user.SignupRequestDto;
 import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.jwt.JwtUtil;
 import com.example.getreadyauction.repository.UsersRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,27 +26,27 @@ public class UserService {
 
 
     @Transactional
-    public LoginResponseDto signup(SignupRequestDto signupRequestDto) {
+    public ResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
         // 회원 중복 확인
         Optional<Users> found = usersRepository.findByUsername(username);
         if (found.isPresent()) {
-            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
+            return ResponseDto.setBadRequest("중복된 사용자가 존재합니다.");
+//            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
-
 
 
         Users user = new Users(username, password);
         usersRepository.save(user);
 
-        return new LoginResponseDto("회원가입 성공", HttpStatus.OK);
+        return ResponseDto.setSuccess("회원가입 성공");
     }
 
 
     @Transactional(readOnly = true)
-    public LoginResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -57,11 +56,12 @@ public class UserService {
         );
         // 비밀번호 확인
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            return ResponseDto.setBadRequest("비밀번호가 일치하지 않습니다");
+//            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));//addHeader를 사용해 Header쪽에 값을 넣어줄 수 있음(?)(유저이름과 유저 권한을 넣어줌(?))
-        return new LoginResponseDto("로그인 성공", HttpStatus.OK);
+        return ResponseDto.setSuccess("로그인 성공");
 
     }//jwt 구현하기 9(from UserController)//이후 의존성 주입을 위해 동일 부분에서 작업(UserService)//ResponseHeader에 토큰보내기 파트
 
