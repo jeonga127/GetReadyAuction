@@ -22,6 +22,7 @@ public class AuctionAllResponseDto {
     private List<Bid> topBidList;
     private boolean isDone;
     private int minPrice;
+    private int currentPrice;
     private int views;
 
     public AuctionAllResponseDto(Auction auction, List<Bid> topBidList){
@@ -36,6 +37,7 @@ public class AuctionAllResponseDto {
         this.topBidList = topBidList;
         this.isDone = auction.isDone();
         this.minPrice = auction.getMinPrice();
+        this.currentPrice = auction.getCurrentPrice();
         this.views = auction.getViews();
     }
 
