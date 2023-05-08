@@ -26,7 +26,7 @@ public class AuctionService {
 
     @Transactional(readOnly = true)
     public ResponseDto<List<AuctionResponseDto>> getAllAuctions(Pageable pageable) {
-        List<Auction> auctionList = auctionRepository.findAllByOrderByModifiedAtDesc(pageable).getContent();
+        List<Auction> auctionList = auctionRepository.findAllByOrderByCreatedAtDesc(pageable).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Auctions Information", auctionResponseDtoList);
     }

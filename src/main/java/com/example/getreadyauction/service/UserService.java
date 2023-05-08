@@ -1,5 +1,6 @@
 package com.example.getreadyauction.service;
 
+import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.user.LoginRequestDto;
 import com.example.getreadyauction.dto.user.LoginResponseDto;
 import com.example.getreadyauction.dto.user.SignupRequestDto;
@@ -23,9 +24,6 @@ public class UserService {
     private final JwtUtil jwtUtil;//jwt 구현하기 10(from UserService)//이후 User로 이동//ResponseHeader에 토큰보내기 파트(11번부터는 jwt로 관심상품 조회하기 파트)//+로 login.html에 script가 추가됨(추가된 파트는 //토큰보내기로 표시)+로 index.html과 basic.js도 스니펫붙임(최종본반영해도 좋을수 있음))
     private final PasswordEncoder passwordEncoder;
 
-    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";//관리자 검증(?)
-
-
     @Transactional
     public LoginResponseDto signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
@@ -37,14 +35,11 @@ public class UserService {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
 
-
-
         Users user = new Users(username, password);
         usersRepository.save(user);
 
         return new LoginResponseDto("회원가입 성공", HttpStatus.OK);
     }
-
 
     @Transactional(readOnly = true)
     public LoginResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
@@ -64,5 +59,4 @@ public class UserService {
         return new LoginResponseDto("로그인 성공", HttpStatus.OK);
 
     }//jwt 구현하기 9(from UserController)//이후 의존성 주입을 위해 동일 부분에서 작업(UserService)//ResponseHeader에 토큰보내기 파트
-
 }

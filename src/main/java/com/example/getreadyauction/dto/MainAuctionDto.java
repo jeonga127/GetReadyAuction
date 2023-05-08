@@ -23,9 +23,4 @@ public class MainAuctionDto {
         this.currentPrice = action.getCurrentPrice();
         this.deadLine = action.getDeadline();
     }
-
-
-
-
-
 }

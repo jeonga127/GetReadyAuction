@@ -59,5 +59,4 @@ public class MainService {
 //        List<MainAuctionDto> mainAuctionDto = auctionList.stream().map(MainAuctionDto::new).collect(Collectors.toList());
 //        return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
 //    }
-
 }

@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Auction extends Timestamped {
     @Id
@@ -92,6 +90,6 @@ public class Auction extends Timestamped {
 
     public void Up(){
         LocalDateTime now = LocalDateTime.now();
-        this.setModifiedAt(now);
+        this.setCreatedAt(now);
     }
 }
