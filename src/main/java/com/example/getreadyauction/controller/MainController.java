@@ -18,5 +18,4 @@ public class MainController {
     public ResponseDto main(String orderBy, Pageable pageable){
         return mainService.main(orderBy, pageable);
     }
-
 }
