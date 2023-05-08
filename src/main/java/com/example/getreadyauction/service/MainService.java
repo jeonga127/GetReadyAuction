@@ -23,7 +23,7 @@ public class MainService {
 
     @Transactional(readOnly = true) //조회수 기준 실시간 경매리스트
     public ResponseDto<List<MainAuctionDto>> mainView(Pageable pageable) {
-        List<Auction> auctionList = auctionRepository.findAllByOrderByViewsAsc(pageable).getContent();
+        List<Auction> auctionList = auctionRepository.findAllByOrderByViewsDesc(pageable).getContent();
         List<MainAuctionDto> mainAuctionDto = auctionList.stream().map(MainAuctionDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", mainAuctionDto);
     }
