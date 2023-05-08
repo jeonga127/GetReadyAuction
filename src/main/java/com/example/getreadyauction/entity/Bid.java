@@ -27,14 +27,13 @@ public class Bid extends Timestamped{
     @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
 
-
     public Bid(BidRequestDto bidRequestDto, Users user, Auction auction) {
         this.price = bidRequestDto.getPrice();
         this.user = user;
         this.auction = auction;
     }
 
-    public void Edit(BidRequestDto bidRequestDto){
+    public void edit(BidRequestDto bidRequestDto){
         this.price = bidRequestDto.getPrice();
     }
 }

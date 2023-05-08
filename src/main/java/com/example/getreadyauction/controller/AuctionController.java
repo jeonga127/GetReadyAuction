@@ -24,12 +24,12 @@ public class AuctionController {
     }
 
     @GetMapping("/category")
-    public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, @RequestBody AuctionCategoryDto auctionCategoryDto){
-        return auctionService.getCategorizedAuctions(pageable, auctionCategoryDto);
+    public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, @RequestBody AuctionCategoryRequestDto auctionCategoryRequestDto){
+        return auctionService.getCategorizedAuctions(pageable, auctionCategoryRequestDto);
     }
     @GetMapping("/search")
-    public ResponseDto<List<AuctionResponseDto>> getSearchedAuctions(Pageable pageable, @RequestBody AuctionSearchDto auctionSearchDto){
-        return auctionService.getSearchedAuction(pageable, auctionSearchDto);
+    public ResponseDto<List<AuctionResponseDto>> getSearchedAuctions(Pageable pageable, @RequestBody AuctionSearchRequestDto auctionSearchRequestDto){
+        return auctionService.getSearchedAuction(pageable, auctionSearchRequestDto);
     }
 
     @GetMapping("/{id}")

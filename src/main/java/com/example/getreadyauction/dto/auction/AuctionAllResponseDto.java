@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class AuctionAllResponseDto {
+    private Long id;
     private String title;
     private String category;
     private String username;
@@ -21,9 +22,11 @@ public class AuctionAllResponseDto {
     private List<Bid> topBidList;
     private boolean isDone;
     private int minPrice;
+    private int currentPrice;
     private int views;
 
     public AuctionAllResponseDto(Auction auction, List<Bid> topBidList){
+        this.id = auction.getId();
         this.title = auction.getTitle();
         this.category = auction.getCategory();
         this.username = auction.getUser().getUsername();
@@ -34,6 +37,7 @@ public class AuctionAllResponseDto {
         this.topBidList = topBidList;
         this.isDone = auction.isDone();
         this.minPrice = auction.getMinPrice();
+        this.currentPrice = auction.getCurrentPrice();
         this.views = auction.getViews();
     }
 

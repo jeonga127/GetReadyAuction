@@ -58,7 +58,6 @@ public class Auction extends Timestamped {
     @OrderBy("createdAt desc")
     private List<Bid> bidList;
 
-
     @Builder
     public Auction(AuctionRequestDto auctionRequestDto, Users user){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
