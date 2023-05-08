@@ -16,6 +16,7 @@ public class AuctionAllResponseDto {
     private String category;
     private String username;
     private String content;
+    private String successBid;
     private LocalDateTime deadline;
     private LocalDateTime modifiedAt;
     private List<Bid> allBidList;
@@ -39,6 +40,6 @@ public class AuctionAllResponseDto {
         this.minPrice = auction.getMinPrice();
         this.currentPrice = auction.getCurrentPrice();
         this.views = auction.getViews();
+        this.successBid = auction.getSuccessBid();
     }
-
 }

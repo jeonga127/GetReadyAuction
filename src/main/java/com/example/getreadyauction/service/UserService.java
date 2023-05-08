@@ -52,7 +52,7 @@ public class UserService {
         // 비밀번호 확인
         if (!passwordEncoder.matches(password, user.getPassword())) {
             return ResponseDto.setBadRequest("비밀번호가 일치하지 않습니다");
-        // throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            // throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));//addHeader를 사용해 Header쪽에 값을 넣어줄 수 있음(?)(유저이름과 유저 권한을 넣어줌(?))

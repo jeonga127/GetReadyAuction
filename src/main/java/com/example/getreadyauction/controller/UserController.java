@@ -41,8 +41,6 @@ public class UserController {
         return userService.signup(signupRequestDto);
     }
 
-
-
     @ResponseBody
     @PostMapping("/login")//로그인
     public ResponseDto login(@Valid @RequestBody LoginRequestDto loginRequestDto, BindingResult bindingResult ,HttpServletResponse response) {
@@ -56,5 +54,4 @@ public class UserController {
         return userService.login(loginRequestDto, response);
 
     }
-
 }

@@ -4,11 +4,9 @@ package com.example.getreadyauction.service;
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionResponseDto;
 import com.example.getreadyauction.entity.Auction;
-import com.example.getreadyauction.entity.Bid;
 import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,8 +27,6 @@ public class MyPageService {
         List<AuctionResponseDto> auctionResponseDtoList = auctionPage.getContent().stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Auctions Information", auctionResponseDtoList);
     }
-
-
 
     @Transactional(readOnly = true) //내 입찰 전체 조회
     public ResponseDto<List<AuctionResponseDto>> myBid(Pageable pageable, Users user) {

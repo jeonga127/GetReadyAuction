@@ -56,6 +56,8 @@ public class Auction extends Timestamped {
     @OrderBy("createdAt desc")
     private List<Bid> bidList;
 
+    private String successBid;
+
     @Builder
     public Auction(AuctionRequestDto auctionRequestDto, Users user){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
@@ -70,16 +72,20 @@ public class Auction extends Timestamped {
         this.views = 0;
         this.bidSize = 0;
         this.user = user;
+        this.successBid = "낙찰된 사용자가 없습니다.";
     }
 
     public void setCurrentPrice(int currentPrice){
         this.currentPrice = currentPrice;
     }
-    public void setIsDone(LocalDateTime now){ this.isDone = now.isAfter(this.deadline); }
+    public void setIsDone(LocalDateTime now){
+        this.isDone = now.isAfter(this.deadline);
+        this.successBid = this.bidList.get(0).getUser().getUsername();
+    }
     public void setBidList(List<Bid> bidList){ this.bidList = bidList; this.bidSize+=1;}
     public void setView() { this.views += 1; }
 
-    public void Edit(AuctionRequestDto auctionRequestDto) {
+    public void edit(AuctionRequestDto auctionRequestDto) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
         this.title = auctionRequestDto.getTitle();
         this.category = auctionRequestDto.getCategory();
@@ -88,7 +94,7 @@ public class Auction extends Timestamped {
         this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
     }
 
-    public void Up(){
+    public void up(){
         LocalDateTime now = LocalDateTime.now();
         this.setCreatedAt(now);
     }

@@ -15,7 +15,6 @@ public class MainAuctionDto {
     private int currentPrice;
     private LocalDateTime deadLine;
 
-
     public MainAuctionDto(Auction action) {
         this.id = action.getId();
         this.title = action.getTitle();
