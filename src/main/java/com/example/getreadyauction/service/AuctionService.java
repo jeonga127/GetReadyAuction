@@ -48,6 +48,10 @@ public class AuctionService {
     @Transactional
     public ResponseDto<AuctionAllResponseDto> getDetailedAuctions(Long id) {
         Auction auction = validateAuction(id);
+
+        if(auction.getBidList().isEmpty())
+            return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, null));
+
         List<Bid> tmpList = new ArrayList<>(List.copyOf(auction.getBidList()));
         List<Bid> topBidList = tmpList.size() >= 3 ? tmpList.subList(0, 3) : tmpList.subList(0, tmpList.size());
 
