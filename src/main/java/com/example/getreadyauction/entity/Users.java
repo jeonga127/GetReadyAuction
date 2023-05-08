@@ -1,26 +1,24 @@
 package com.example.getreadyauction.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Entity(name = "users")//jwt구현하기 11(from UserService)(전체 스니펫)//이후 Product로 이동
+@Entity(name = "users")
 public class Users {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // nullable: null 허용 여부
-    // unique: 중복 허용 여부 (false 일때 중복 허용)
 
     @Column(nullable = false, unique = true)
     private String username;
 
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
 
@@ -29,5 +27,4 @@ public class Users {
         this.password = password;
 
     }
-
 }

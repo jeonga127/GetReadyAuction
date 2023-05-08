@@ -3,14 +3,15 @@ package com.example.getreadyauction.service;
 import com.example.getreadyauction.dto.auction.AuctionRequestDto;
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionAllResponseDto;
-import com.example.getreadyauction.dto.auction.AuctionCategoryDto;
+import com.example.getreadyauction.dto.auction.AuctionCategoryRequestDto;
 import com.example.getreadyauction.dto.auction.AuctionResponseDto;
-import com.example.getreadyauction.dto.auction.AuctionSearchDto;
+import com.example.getreadyauction.dto.auction.AuctionSearchRequestDto;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
 import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,26 +31,26 @@ public class AuctionService {
 
     @Transactional(readOnly = true)
     public ResponseDto<List<AuctionResponseDto>> getAllAuctions(Pageable pageable) {
-        List<Auction> auctionList = auctionRepository.findAll(pageable).getContent();
+        List<Auction> auctionList = auctionRepository.findAllByOrderByModifiedAtDesc(pageable).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Auctions Information", auctionResponseDtoList);
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, AuctionCategoryDto auctionCategoryDto) {
-        List<Auction> auctionList = auctionRepository.findAllByCategory(pageable, auctionCategoryDto.getCategory()).getContent();
+    public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, AuctionCategoryRequestDto auctionCategoryRequestDto) {
+        List<Auction> auctionList = auctionRepository.findAllByCategoryOrderByModifiedAtDesc(pageable, auctionCategoryRequestDto.getCategory()).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", auctionResponseDtoList);
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto<List<AuctionResponseDto>> getSearchedAuction(Pageable pageable, AuctionSearchDto auctionSearchDto) {
-        List<Auction> auctionList = auctionRepository.findAllByTitleContaining(pageable, auctionSearchDto.getSearch()).getContent();
+    public ResponseDto<List<AuctionResponseDto>> getSearchedAuction(Pageable pageable, AuctionSearchRequestDto auctionSearchRequestDto) {
+        List<Auction> auctionList = auctionRepository.findAllByTitleContaining(pageable, auctionSearchRequestDto.getSearch()).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", auctionResponseDtoList);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ResponseDto<AuctionAllResponseDto> getDetailedAuctions(Long id) {
         Auction auction = validateAuction(id);
         List<Bid> tmpList = new ArrayList<>(List.copyOf(auction.getBidList()));
@@ -61,6 +62,7 @@ public class AuctionService {
         List<Bid> topBidList = tmpList.stream().skip(3).limit(3).collect(Collectors.toList());
         auction.setIsDone(LocalDateTime.now());
         auction.setView();
+        auction.setBidList(topBidList);
         return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, topBidList));
     }
 

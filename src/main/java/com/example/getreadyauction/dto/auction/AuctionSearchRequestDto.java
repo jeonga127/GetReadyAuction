@@ -2,9 +2,11 @@ package com.example.getreadyauction.dto.auction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-public class AuctionCategoryDto {
-    private String category;
+@NoArgsConstructor
+public class AuctionSearchRequestDto {
+    private String search;
 }
