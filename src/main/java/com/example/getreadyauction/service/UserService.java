@@ -2,6 +2,7 @@ package com.example.getreadyauction.service;
 
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.user.LoginRequestDto;
+import com.example.getreadyauction.dto.user.LoginResponseDto;
 import com.example.getreadyauction.dto.user.SignupRequestDto;
 import com.example.getreadyauction.entity.ErrorCode;
 import com.example.getreadyauction.entity.Users;
@@ -59,6 +60,6 @@ public class UserService {
         }
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));//addHeader를 사용해 Header쪽에 값을 넣어줄 수 있음(?)(유저이름과 유저 권한을 넣어줌(?))
-        return ResponseDto.setSuccess("로그인 성공");
+        return ResponseDto.setSuccess("로그인 성공", new LoginResponseDto(user.getUsername()));
     } //jwt 구현하기 9(from UserController)//이후 의존성 주입을 위해 동일 부분에서 작업(UserService)//ResponseHeader에 토큰보내기 파트
 }
