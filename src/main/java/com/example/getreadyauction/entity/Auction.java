@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Slf4j
 @NoArgsConstructor
 public class Auction extends Timestamped {
     @Id
@@ -59,7 +61,7 @@ public class Auction extends Timestamped {
     private String successBid;
 
     @Builder
-    public Auction(AuctionRequestDto auctionRequestDto, Users user){
+    public Auction(AuctionRequestDto auctionRequestDto, Users user) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
 
         this.title = auctionRequestDto.getTitle();
@@ -75,27 +77,46 @@ public class Auction extends Timestamped {
         this.successBid = "낙찰된 사용자가 없습니다.";
     }
 
-    public void setCurrentPrice(int currentPrice){
+    public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
     }
-    public void setIsDone(LocalDateTime now){
+
+    public void setIsDone(LocalDateTime now) {
         this.isDone = now.isAfter(this.deadline);
         this.successBid = this.bidList.get(0).getUser().getUsername();
     }
-    public void setBidList(List<Bid> bidList){ this.bidList = bidList; this.bidSize+=1;}
-    public void setView() { this.views += 1; }
 
-    public void edit(AuctionRequestDto auctionRequestDto) {
+    public void setBidList(List<Bid> bidList) {
+        this.bidList = bidList;
+        this.bidSize += 1;
+    }
+
+    public void setView() {
+        this.views += 1;
+    }
+
+    public void edit(AuctionRequestDto auctionRequestDto) { // deadline : 2023-05-09T19:21:23
+
+        log.info(auctionRequestDto.getDeadline());
+
+        String year = auctionRequestDto.getDeadline().substring(0, 4) + "년 ";
+        String month = auctionRequestDto.getDeadline().substring(5, 7) + "월 ";
+        String day = auctionRequestDto.getDeadline().substring(8, 10) + "일 ";
+        String hour = auctionRequestDto.getDeadline().substring(11, 13) + "시 ";
+        String min = auctionRequestDto.getDeadline().substring(14, 16) + "분 ";
+        String sec = auctionRequestDto.getDeadline().substring(17, 19) + "초";
+        String result = year + month + day + hour + min + sec;
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
 
         this.title = auctionRequestDto.getTitle();
         this.category = auctionRequestDto.getCategory();
         this.content = auctionRequestDto.getContent();
         this.minPrice = auctionRequestDto.getMinPrice();
-        this.deadline = LocalDateTime.parse(auctionRequestDto.getDeadline(), formatter);
+        this.deadline = LocalDateTime.parse(result, formatter);
     }
 
-    public void up(){
+    public void up() {
         LocalDateTime now = LocalDateTime.now();
         this.setCreatedAt(now);
     }

@@ -43,18 +43,18 @@ public class AuctionController {
         return auctionService.postAddAuction(auctionAddRequestDto, userDetails.getUser());
     }
 
-    @PutMapping("/edit/{id}") //경매 수정
-    public ResponseDto putEditAuction(@PathVariable Long id,@RequestBody AuctionRequestDto auctionAddRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return auctionService.putEditAuction(id, auctionAddRequestDto, userDetails.getUser());
+    @PutMapping("/edit/{editId}") //경매 수정
+    public ResponseDto putEditAuction(@PathVariable("editId") Long editId, @RequestBody AuctionRequestDto auctionAddRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return auctionService.putEditAuction(editId, auctionAddRequestDto, userDetails.getUser());
     }
 
-    @PutMapping("/up/{id}") //경매 끌올
-    public ResponseDto putUpAuction(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return auctionService.putUpAuction(id, userDetails.getUser());
+    @PutMapping("/up/{upId}") //경매 끌올
+    public ResponseDto putUpAuction(@PathVariable("upId") Long upId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return auctionService.putUpAuction(upId, userDetails.getUser());
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseDto delAuction(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return auctionService.delAuction(id, userDetails.getUser());
+    @DeleteMapping("/delete/{deleteId}")
+    public ResponseDto delAuction(@PathVariable("deleteId") Long deleteId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return auctionService.delAuction(deleteId, userDetails.getUser());
     }
 }
