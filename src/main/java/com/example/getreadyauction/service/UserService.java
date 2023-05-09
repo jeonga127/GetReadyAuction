@@ -3,7 +3,9 @@ package com.example.getreadyauction.service;
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.user.LoginRequestDto;
 import com.example.getreadyauction.dto.user.SignupRequestDto;
+import com.example.getreadyauction.entity.ErrorCode;
 import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.exception.CustomException;
 import com.example.getreadyauction.jwt.JwtUtil;
 import com.example.getreadyauction.repository.UsersRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -47,7 +50,7 @@ public class UserService {
 
         // 사용자 확인
         Users user = usersRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
+                () -> new CustomException(ErrorCode.NON_LOGIN)
         );
         // 비밀번호 확인
         if (!passwordEncoder.matches(password, user.getPassword())) {

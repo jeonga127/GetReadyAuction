@@ -4,7 +4,9 @@ import com.example.getreadyauction.dto.BidRequestDto;
 import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
+import com.example.getreadyauction.entity.ErrorCode;
 import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.exception.CustomException;
 import com.example.getreadyauction.repository.AuctionRepository;
 import com.example.getreadyauction.repository.BidRepository;
 import jakarta.transaction.Transactional;
@@ -77,7 +79,7 @@ public class BidService {
     /* 유효성 검사 */
     public Auction validateAuction(Long id){
         return auctionRepository.findById(id).orElseThrow( // 게시물이 존재하는지 여부 파악, 존재하면 담아줌
-                () -> new NoSuchElementException("존재하지 않는 물품입니다")
+                () -> new CustomException(ErrorCode.NOSUCH_AUCTION)
         );
     }
 

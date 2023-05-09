@@ -87,6 +87,7 @@ public class Auction extends Timestamped {
 
     public void edit(AuctionRequestDto auctionRequestDto) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
+
         this.title = auctionRequestDto.getTitle();
         this.category = auctionRequestDto.getCategory();
         this.content = auctionRequestDto.getContent();

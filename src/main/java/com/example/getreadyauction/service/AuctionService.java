@@ -4,7 +4,9 @@ import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.auction.*;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
+import com.example.getreadyauction.entity.ErrorCode;
 import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.exception.CustomException;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -73,7 +75,7 @@ public class AuctionService {
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
             auction.edit(auctionRequestDto); // 맞으면 수정해줌
         } else
-            throw new IllegalArgumentException("권한이 없습니다"); // id 다르면 던져줌
+            throw new CustomException(ErrorCode.INVALID_AUTHORIZATION); // id 다르면 던져줌
         return ResponseDto.setSuccess("물품이 수정되었습니다", null);
     }
 
@@ -83,7 +85,7 @@ public class AuctionService {
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
             auction.up();  // 맞으면 그냥 담아온 값을 고대로 반영
         } else
-            throw new IllegalArgumentException("권한이 없습니다"); // id가 다르면 던져줌
+            throw new CustomException(ErrorCode.INVALID_AUTHORIZATION); // id가 다르면 던져줌
         return ResponseDto.setSuccess("끌어 올려졌습니다!", null);
     }
 
@@ -93,12 +95,12 @@ public class AuctionService {
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
             auctionRepository.deleteById(id); // 맞으면 받아온 id값을 기반으로 레포지토리에서 삭제
         } else
-            throw new IllegalArgumentException("권한이 없습니다"); // id 다르면 던져줌
+            throw new CustomException(ErrorCode.INVALID_AUTHORIZATION); // id 다르면 던져줌
         return ResponseDto.setSuccess("물품이 삭제되었습니다.", null);
     }
 
     public Auction validateAuction(Long id) {
-        return auctionRepository.findById(id).orElseThrow(() -> new NoSuchElementException("존재하지 않는 경매입니다."));
+        return auctionRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NOSUCH_AUCTION));
     }
 }
 
