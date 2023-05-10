@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Slf4j
 @NoArgsConstructor
 public class Auction extends Timestamped {
     @Id

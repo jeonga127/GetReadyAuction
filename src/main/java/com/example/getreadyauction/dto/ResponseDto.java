@@ -10,6 +10,7 @@ public class ResponseDto<T> {
     private HttpStatus status;
     private String message;
     private T data;
+
     public static <T> ResponseDto<T> setSuccess(String message, T data){
         return ResponseDto.set(HttpStatus.OK, message, data);
     }

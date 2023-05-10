@@ -12,11 +12,7 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     Page<Auction> findAllByTitleContaining(Pageable pageable, String title);
     Page<Auction> findAllByUser(Pageable pageable, Users user); //내 경매 전체 조회
     Page<Auction> findByBidListUser(Pageable pageable, Users user); //내 입찰 전체 조회
-
     Page<Auction>findAllByIsDoneOrderByViewsDesc(boolean isDone, Pageable pageable); //view기준 내림차순
-
     Page<Auction> findAllByIsDoneOrderByDeadlineAsc(boolean isDone, Pageable pageable); //deadline 기준 오름차순
-
     Page<Auction> findAllByIsDoneOrderByBidSizeDesc(boolean isDone, Pageable pageable); //입찰이 많이 된 기준 내림차순
-
 }

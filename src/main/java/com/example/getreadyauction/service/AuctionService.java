@@ -9,7 +9,6 @@ import com.example.getreadyauction.entity.Users;
 import com.example.getreadyauction.exception.CustomException;
 import com.example.getreadyauction.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class AuctionService {
 
     private final AuctionRepository auctionRepository;
@@ -52,7 +50,6 @@ public class AuctionService {
     public ResponseDto<AuctionAllResponseDto> getDetailedAuctions(Long id) {
         Auction auction = validateAuction(id);
 
-        log.info("GET 요청 발생! : " + LocalDateTime.now().toString());
         auction.setIsDone(LocalDateTime.now());
         auction.setView();
 

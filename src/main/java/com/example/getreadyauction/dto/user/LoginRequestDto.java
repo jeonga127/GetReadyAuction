@@ -10,4 +10,4 @@ public class LoginRequestDto {
 
     @NotEmpty(message = "password는 필수 값입니다.")
     private String password;
-}//로그인할때 필요(?)
+}//로그인시 필요

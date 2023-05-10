@@ -23,6 +23,5 @@ public class Users {
     public Users(String username, String password) {
         this.username = username;
         this.password = password;
-
     }
 }

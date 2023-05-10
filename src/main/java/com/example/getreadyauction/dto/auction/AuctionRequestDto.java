@@ -3,7 +3,6 @@ package com.example.getreadyauction.dto.auction;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Getter
 @NoArgsConstructor
 public class AuctionRequestDto {

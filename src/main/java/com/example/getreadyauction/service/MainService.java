@@ -25,11 +25,11 @@ public class MainService {
     @Transactional(readOnly = true)
     public ResponseDto<List<AuctionResponseDto>> mainView(String orderBy, Pageable pageable) {
         List<Auction> auctionList;
-        if (orderBy.equals("views")) { //조회수
+        if (orderBy.equals("views")) { //조회수 별 경매 조회
             auctionList = auctionRepository.findAllByIsDoneOrderByViewsDesc(false, pageable).getContent();
-        } else if (orderBy.equals("deadline")) { //마감입박
+        } else if (orderBy.equals("deadline")) { //마감 임박이 가까운 순으로 경매 조회
             auctionList = auctionRepository.findAllByIsDoneOrderByDeadlineAsc(false, pageable).getContent();
-        } else if (orderBy.equals("count")) { //입찰
+        } else if (orderBy.equals("count")) { //입찰이 많은 순으로 경매 조회
             auctionList = auctionRepository.findAllByIsDoneOrderByBidSizeDesc(false, pageable).getContent();
         } else
             throw new CustomException(ErrorCode.NONE_AUCTION);
