@@ -17,7 +17,7 @@ public class AuctionAllResponseDto {
     private String username;
     private String content;
     private String successBid;
-    private LocalDateTime deadline;
+    private String deadline;
     private LocalDateTime modifiedAt;
     private List<Bid> allBidList;
     private List<Bid> topBidList;

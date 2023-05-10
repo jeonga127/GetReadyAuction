@@ -13,7 +13,7 @@ public class AuctionResponseDto {
     private String title;
     private String category;
     private int currentPrice;
-    private LocalDateTime deadline;
+    private String deadline;
 
     public AuctionResponseDto(Auction auction){
         this.id = auction.getId();
