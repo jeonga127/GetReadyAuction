@@ -25,28 +25,28 @@ public class AuctionService {
 
     private final AuctionRepository auctionRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)//경매 전체 조회
     public ResponseDto<List<AuctionResponseDto>> getAllAuctions(Pageable pageable) {
         List<Auction> auctionList = auctionRepository.findAllByOrderByCreatedAtDesc(pageable).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Auctions Information", auctionResponseDtoList);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)//경매 카테고리별 전체 조회
     public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, String category) {
         List<Auction> auctionList = auctionRepository.findAllByCategoryOrderByModifiedAtDesc(pageable, category).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", auctionResponseDtoList);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)//경매 검색
     public ResponseDto<List<AuctionResponseDto>> getSearchedAuction(Pageable pageable, String search) {
         List<Auction> auctionList = auctionRepository.findAllByTitleContaining(pageable, search).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Searched Auctions Information", auctionResponseDtoList);
     }
 
-    @Transactional
+    @Transactional//경매 상세 조회
     public ResponseDto<AuctionAllResponseDto> getDetailedAuctions(Long id) {
         Auction auction = validateAuction(id);
 
@@ -62,11 +62,12 @@ public class AuctionService {
         return ResponseDto.setSuccess("Success : get Detailed Auction Information", new AuctionAllResponseDto(auction, topBidList));
     }
 
+
     public ResponseDto postAddAuction(AuctionRequestDto auctionRequestDto, Users users) { // 저장 서비스
         Auction auction = new Auction(auctionRequestDto, users); // Requestdto 받아서 user 정보와 함께 객체 생성
         auctionRepository.saveAndFlush(auction); // 객체를 레포지토리에 저장
         return ResponseDto.setSuccess("물품이 등록되었습니다", null);
-    }
+    }//경매 등록
 
     @Transactional
     public ResponseDto putEditAuction(Long id, AuctionRequestDto auctionRequestDto, Users users) { // 수정 서비스
@@ -76,9 +77,9 @@ public class AuctionService {
         } else
             throw new CustomException(ErrorCode.INVALID_AUTHORIZATION); // id 다르면 던져줌
         return ResponseDto.setSuccess("물품이 수정되었습니다", null);
-    }
+    }//경매 수정
 
-    @Transactional
+    @Transactional//경매 끌올
     public ResponseDto putUpAuction(Long id, Users users) { // 끌올
         Auction auction = validateAuction(id); // 중복된 메서드는 공통 메서드 처리
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
@@ -88,7 +89,7 @@ public class AuctionService {
         return ResponseDto.setSuccess("끌어 올려졌습니다!", null);
     }
 
-    @Transactional
+    @Transactional//경매 삭제
     public ResponseDto delAuction(Long id, Users users) { // 물품 삭제
         Auction auction = validateAuction(id); // 중복된 메서드는 공통 메서드 처리
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
@@ -100,6 +101,6 @@ public class AuctionService {
 
     public Auction validateAuction(Long id) {
         return auctionRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NOSUCH_AUCTION));
-    }
+    }//validateAuction(Long id) 메서드는 주어진 id에 해당하는 Auction 객체를 데이터베이스에서 찾는 역할을 함
 }
 

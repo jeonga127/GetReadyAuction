@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor//CustomException에 담을 문구(?)//ErrorResponseDto에 담을 문구(?)
 public enum ErrorCode {
     NON_LOGIN(HttpStatus.BAD_REQUEST, "회원을 찾을 수 없습니다"),
     EXPIRED_TOKEN (HttpStatus.BAD_REQUEST, "Expired JWT token, 만료된 JWT token 입니다."),
