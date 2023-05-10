@@ -33,17 +33,17 @@ public class AuctionService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, AuctionCategoryRequestDto auctionCategoryRequestDto) {
-        List<Auction> auctionList = auctionRepository.findAllByCategoryOrderByModifiedAtDesc(pageable, auctionCategoryRequestDto.getCategory()).getContent();
+    public ResponseDto<List<AuctionResponseDto>> getCategorizedAuctions(Pageable pageable, String category) {
+        List<Auction> auctionList = auctionRepository.findAllByCategoryOrderByModifiedAtDesc(pageable, category).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
         return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", auctionResponseDtoList);
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto<List<AuctionResponseDto>> getSearchedAuction(Pageable pageable, AuctionSearchRequestDto auctionSearchRequestDto) {
-        List<Auction> auctionList = auctionRepository.findAllByTitleContaining(pageable, auctionSearchRequestDto.getSearch()).getContent();
+    public ResponseDto<List<AuctionResponseDto>> getSearchedAuction(Pageable pageable, String search) {
+        List<Auction> auctionList = auctionRepository.findAllByTitleContaining(pageable, search).getContent();
         List<AuctionResponseDto> auctionResponseDtoList = auctionList.stream().map(AuctionResponseDto::new).collect(Collectors.toList());
-        return ResponseDto.setSuccess("Success : get All Categorized Auctions Information", auctionResponseDtoList);
+        return ResponseDto.setSuccess("Success : get All Searched Auctions Information", auctionResponseDtoList);
     }
 
     @Transactional
