@@ -21,6 +21,14 @@ jobs:
       with:
         java-version: '17'
         
+    - name : Copy Secret
+      env :
+        OCCUPY_SECRET : ${{ secrets.OCCUPY_SECRET }}
+        OCCUPY_SECRET_DIR : src/main/resources
+        OCCUPY_SECRET_DIR_FILE_NAME : application.properties
+      run : echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME &&
+            echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_TEST_DIR/$OCCUPY_SECRET_DIR_FILE_NAME            
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
@@ -34,6 +42,19 @@ jobs:
     # Jar 파일 복사
     - name: Copy Jar
       run: cp ./build/libs/*.jar ./deploy
+      
+    # appspec.yml 파일 복사
+    - name: Copy appspec.yml
+      run: cp appspec.yml ./deploy
+
+
+    # script files 복사
+    - name: Copy script
+      run: cp ./scripts/*.sh ./deploy
+
+    - name: Make zip file
+      run: zip -r ./coinTalk.zip ./deploy
+      shell: bash
 
     - name: Make zip file
       run: zip -r ./GetReadyAuction.zip ./deploy
