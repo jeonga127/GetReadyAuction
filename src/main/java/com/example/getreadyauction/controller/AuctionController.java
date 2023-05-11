@@ -48,11 +48,6 @@ public class AuctionController {
         return auctionService.putEditAuction(editId, auctionAddRequestDto, userDetails.getUser());
     }
 
-    @PutMapping("/up/{upId}") //경매 끌올
-    public ResponseDto putUpAuction(@PathVariable("upId") Long upId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return auctionService.putUpAuction(upId, userDetails.getUser());
-    }
-
     @DeleteMapping("/delete/{deleteId}")
     public ResponseDto delAuction(@PathVariable("deleteId") Long deleteId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return auctionService.delAuction(deleteId, userDetails.getUser());

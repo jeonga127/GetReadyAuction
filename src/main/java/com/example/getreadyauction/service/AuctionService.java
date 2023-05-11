@@ -79,16 +79,6 @@ public class AuctionService {
     }
 
     @Transactional
-    public ResponseDto putUpAuction(Long id, Users users) { // 끌올
-        Auction auction = validateAuction(id); // 중복된 메서드는 공통 메서드 처리
-        if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
-            auction.up();  // 맞으면 그냥 담아온 값을 고대로 반영
-        } else
-            throw new CustomException(ErrorCode.INVALID_AUTHORIZATION); // id가 다르면 던져줌
-        return ResponseDto.setSuccess("끌어 올려졌습니다!", null);
-    }
-
-    @Transactional
     public ResponseDto delAuction(Long id, Users users) { // 물품 삭제
         Auction auction = validateAuction(id); // 중복된 메서드는 공통 메서드 처리
         if (users.getUsername().equals(auction.getUser().getUsername())) { // 물품 등록자의 id와 수정하려는 사람의 id를 가져와서 비교
