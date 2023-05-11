@@ -1,71 +1,31 @@
-name: Build and Deploy Spring Boot to AWS EC2
+#!/usr/bin/env bash
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+REPOSITORY=/home/ubuntu/app
 
-env:
-  S3_BUCKET_NAME: auction-deploy
+echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
-jobs:
-  build:
-    runs-on: ubuntu-20.04
+CURRENT_PID=$(pgrep -fla java | grep hayan | awk '{print $1}')
 
-    steps:
-    - uses: actions/checkout@v1
+echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
-    - name: Set up Java JDK 17
-      uses: actions/setup-java@v1
-      with:
-        java-version: '17'
+if [ -z "$CURRENT_PID" ]; then
+  echo "현재 구동 중인 애플리케이션이 없으므로 종료하지 않습니다."
+else
+  echo "> kill -15 $CURRENT_PID"
+  kill -15 $CURRENT_PID
+  sleep 5
+fi
 
-    - name : Copy Secret
-      env :
-        OCCUPY_SECRET : ${{ secrets.OCCUPY_SECRET }}
-        OCCUPY_SECRET_DIR : src/main/resources
-        OCCUPY_SECRET_DIR_FILE_NAME : application.properties
-      run : echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME &&
-            echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_TEST_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
+echo "> 새 애플리케이션 배포"
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+JAR_NAME=$(ls -tr $REPOSITORY/*SNAPSHOT.jar | tail -n 1)
 
-    - name: Build with Gradle
-      run: ./gradlew build
+echo "> JAR NAME: $JAR_NAME"
 
-    # 디렉토리 생성
-    - name: Make Directory
-      run: mkdir -p deploy
+echo "> $JAR_NAME 에 실행권한 추가"
 
-    # Jar 파일 복사
-    - name: Copy Jar
-      run: cp ./build/libs/*.jar ./deploy
+chmod +x $JAR_NAME
 
-    # appspec.yml 파일 복사
-    - name: Copy appspec.yml
-      run: cp appspec.yml ./deploy
+echo "> $JAR_NAME 실행"
 
-
-    # script files 복사
-    - name: Copy script
-      run: cp ./scripts/*.sh ./deploy
-
-    - name: Make zip file
-      run: zip -r ./coinTalk.zip ./deploy
-      shell: bash
-
-    - name: Make zip file
-      run: zip -r ./GetReadyAuction.zip ./deploy
-      shell: bash
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
-
-    - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./GetReadyAuction.zip s3://$S3_BUCKET_NAME/
+nohup java -jar -Duser.timezone=Asia/Seoul $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &
