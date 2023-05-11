@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/user/**", "/main").permitAll()
                 .requestMatchers(HttpMethod.GET, "/auction/**").permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
+        //        .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
