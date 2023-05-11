@@ -15,7 +15,7 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/main")  //하나로 합친 것
-    public ResponseDto main(String orderBy, Pageable pageable){
-        return mainService.mainView(orderBy, pageable);
+    public ResponseDto main(Pageable pageable){
+        return mainService.mainView(pageable);
     }
 }

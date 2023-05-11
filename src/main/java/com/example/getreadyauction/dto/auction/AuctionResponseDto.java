@@ -4,8 +4,6 @@ import com.example.getreadyauction.entity.Auction;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
 public class AuctionResponseDto {
