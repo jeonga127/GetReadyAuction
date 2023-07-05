@@ -3,9 +3,13 @@ package com.example.getreadyauction.dto.user;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupRequestDto {
 
     @NotBlank(message = "id는 필수 값입니다.")
@@ -17,4 +21,5 @@ public class SignupRequestDto {
     @Pattern(regexp = "^[a-zA-Z\\p{Punct}0-9]*$", message = "비밀번호는 최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9),특수문자로 구성해주세요.")
     @Size(min = 8, max = 15)
     private String password;
-}//회원가입시 필요
+
+}

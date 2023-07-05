@@ -19,23 +19,21 @@ public class AuctionAllResponseDto {
     private String successBid;
     private String deadline;
     private LocalDateTime modifiedAt;
-    private List<Bid> allBidList;
-    private List<Bid> topBidList;
+    private List<Bid> bidList;
     private boolean isDone;
     private int minPrice;
     private int currentPrice;
     private int views;
 
-    public AuctionAllResponseDto(Auction auction, List<Bid> topBidList){
+    public AuctionAllResponseDto(Auction auction, List<Bid> bidList){
         this.id = auction.getId();
         this.title = auction.getTitle();
-        this.category = auction.getCategory();
+        this.category = auction.getCategory().getText();
         this.username = auction.getUser().getUsername();
         this.content = auction.getContent();
         this.deadline = auction.getDeadline();
         this.modifiedAt = auction.getModifiedAt();
-        this.allBidList = auction.getBidList();
-        this.topBidList = topBidList;
+        this.bidList = bidList;
         this.isDone = auction.isDone();
         this.minPrice = auction.getMinPrice();
         this.currentPrice = auction.getCurrentPrice();

@@ -16,7 +16,7 @@ public class AuctionResponseDto {
     public AuctionResponseDto(Auction auction){
         this.id = auction.getId();
         this.title = auction.getTitle();
-        this.category = auction.getCategory();
+        this.category = auction.getCategory().getText();
         this.currentPrice = auction.getCurrentPrice();
         this.deadline = auction.getDeadline();
     }

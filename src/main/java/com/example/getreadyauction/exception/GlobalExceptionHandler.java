@@ -1,9 +1,7 @@
 package com.example.getreadyauction.exception;
 
-import com.example.getreadyauction.dto.ErrorResponseDto;
-import com.example.getreadyauction.dto.ResponseDto;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,22 +13,20 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler({MethodArgumentNotValidException.class})
-    protected ResponseEntity<ResponseDto>  signValidException(MethodArgumentNotValidException exception) {
+
+    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
+    protected ResponseEntity<String> signValidException(MethodArgumentNotValidException exception) {
         BindingResult bindingResult = exception.getBindingResult();
         Map<String, String> errors = new HashMap<>();
 
-        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+        for (FieldError fieldError : bindingResult.getFieldErrors())
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
 
-        ResponseDto response = ResponseDto.setBadRequest("Valid Error : ", errors);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.badRequest().body(errors.toString());
     }
 
     @ExceptionHandler(CustomException.class)
-    protected ResponseEntity<ErrorResponseDto> exceptionHandler(final CustomException exception) {
-        ErrorResponseDto response = new ErrorResponseDto(exception.getErrorCode());
-        return new ResponseEntity<>(response, exception.getErrorCode().getStatus());
+    protected ResponseEntity<String> exceptionHandler(final CustomException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 }

@@ -11,52 +11,44 @@ import com.example.getreadyauction.jwt.JwtUtil;
 import com.example.getreadyauction.repository.UsersRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UsersRepository usersRepository;
-    private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     @Transactional
-    public ResponseDto signup(SignupRequestDto signupRequestDto) {
+    public ResponseEntity<String> signup(SignupRequestDto signupRequestDto) {
         String username = signupRequestDto.getUsername();
+
+        if(usersRepository.existsByUsername(username))
+            return ResponseEntity.badRequest().body("중복된 사용자가 존재합니다.");
+
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
-
-        // 회원 중복 확인
-        Optional<Users> found = usersRepository.findByUsername(username);
-        if (found.isPresent()) {
-            return ResponseDto.setBadRequest("중복된 사용자가 존재합니다.");
-        }
-
         Users user = new Users(username, password);
         usersRepository.save(user);
 
-        return ResponseDto.setSuccess("회원가입 성공");
+        return ResponseEntity.ok("회원가입 성공");
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ResponseEntity<Object> login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
-        // 사용자 확인
-        Users user = usersRepository.findByUsername(username).orElseThrow(
-                () -> new CustomException(ErrorCode.NON_LOGIN)
-        );
-        // 비밀번호 확인
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseDto.setBadRequest("비밀번호가 일치하지 않습니다");
-        }
+        Users user = usersRepository.findByUsername(username).orElseThrow(() -> new CustomException(ErrorCode.NON_LOGIN));
+
+        if (!passwordEncoder.matches(password, user.getPassword()))
+            return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
 
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername()));
-        return ResponseDto.setSuccess("로그인 성공", new LoginResponseDto(user.getUsername()));
+        return ResponseEntity.ok(new LoginResponseDto(user.getUsername()));
     }
 }

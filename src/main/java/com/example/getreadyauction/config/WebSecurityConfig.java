@@ -18,20 +18,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-
 public class WebSecurityConfig {
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    @Bean // 비밀번호 암호화 기능 등록
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        // h2-console 사용 및 resources 접근 허용 설정
         return (web) -> web.ignoring()
-     //           .requestMatchers(PathRequest.toH2Console())
-               .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+                .requestMatchers(PathRequest.toH2Console())
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
+
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
@@ -42,7 +44,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/user/**", "/main").permitAll()
                 .requestMatchers(HttpMethod.GET, "/auction/**").permitAll()
-        //        .requestMatchers(PathRequest.toH2Console()).permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
