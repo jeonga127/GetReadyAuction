@@ -37,3 +37,4 @@ jobs:
       with:
         title: 📝 테스트 커버리지 리포트입니다
         paths: build/reports/jacoco/test/html/index.html
+        token: ${{ secrets.GITHUB_TOKEN }}
