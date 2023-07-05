@@ -31,12 +31,9 @@ jobs:
       run: ./gradlew test
       shell: bash
 
-    - name: 테스트 커버리지를 PR에 코멘트로 등록합니다
+    - name: Upload Jacoco Report
       id: jacoco
       uses: madrapps/jacoco-report@v1.2
       with:
         title: 📝 테스트 커버리지 리포트입니다
-        paths: ${{ github.workspace }}/build/reports/jacoco/test/html/index.html
-        token: ${{ secrets.GITHUB_TOKEN }}
-        min-coverage-overall: 10
-        min-coverage-changed-files: 10
+        paths: build/reports/jacoco/test/html/index.html
