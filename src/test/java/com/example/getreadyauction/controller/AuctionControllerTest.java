@@ -60,7 +60,7 @@ class AuctionControllerTest {
     private Auction testAuction;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         testUser1 = new Users("testname1", "@testPassword1");
 
         testAuctionRequestDto = AuctionRequestDto.builder()
