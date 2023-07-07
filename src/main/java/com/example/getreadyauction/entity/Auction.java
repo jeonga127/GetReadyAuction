@@ -76,6 +76,10 @@ public class Auction extends Timestamped {
         this.isDone = now.isAfter(parsedDeadLine);
     }
 
+    public void setBidSize(){
+        this.bidSize += 1;
+    }
+
     public void setView(int view) {
         this.views += view;
     }

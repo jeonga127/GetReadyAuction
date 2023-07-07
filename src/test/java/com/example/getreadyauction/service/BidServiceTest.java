@@ -1,7 +1,6 @@
 package com.example.getreadyauction.service;
 
 import com.example.getreadyauction.dto.BidRequestDto;
-import com.example.getreadyauction.dto.ResponseDto;
 import com.example.getreadyauction.dto.auction.AuctionRequestDto;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
@@ -51,7 +50,12 @@ class BidServiceTest {
         usersRepository.saveAll(List.of(testUser1, testUser2));
 
         AuctionRequestDto testAuctionRequestDto = AuctionRequestDto.builder()
-                .title("test1의 쇼파").category(CategoryType.FURNITURE).content("쇼파").minPrice(13000).deadline("2000-01-01").build();
+                .title("test1의 쇼파")
+                .category(CategoryType.FURNITURE)
+                .content("쇼파")
+                .minPrice(13000)
+                .deadline("2000년 01월 01일 00시 00분 00초")
+                .build();
 
         testAuction = Auction.builder().auctionRequestDto(testAuctionRequestDto).user(testUser1).build();
         auctionRepository.save(testAuction);
@@ -69,13 +73,16 @@ class BidServiceTest {
     void postUsersFirstBid() {
         //given
         BidRequestDto testBidrequest = new BidRequestDto(15000);
+        int beforeBidSize = testAuction.getBidSize();
 
         //when
         ResponseEntity<String> testResult = bidService.postBid(testAuction.getId(), testBidrequest, testUser2);
+        Auction auctionResult = auctionRepository.findById(testAuction.getId()).get();
 
         //then
         assertThat(testResult.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(testResult.getBody()).isEqualTo("입찰 성공");
+        assertThat(auctionResult.getBidSize()).isEqualTo(beforeBidSize + 1);
     }
 
     @Test

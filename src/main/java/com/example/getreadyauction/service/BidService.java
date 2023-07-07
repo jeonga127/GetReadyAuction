@@ -4,6 +4,7 @@ import com.example.getreadyauction.dto.BidRequestDto;
 import com.example.getreadyauction.entity.Auction;
 import com.example.getreadyauction.entity.Bid;
 import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.repository.AuctionRepository;
 import com.example.getreadyauction.repository.BidRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,11 @@ import java.util.Optional;
 public class BidService {
 
     private final BidRepository bidRepository;
+    private final AuctionRepository auctionRepository;
     private final ServiceUtil serviceUtil;
 
     @Transactional
     public ResponseEntity<String> postBid(Long id, BidRequestDto bidRequestDto, Users users) {
-
         Auction auction = serviceUtil.validateAuction(id);
 
         if (users.getUsername().equals(auction.getUser().getUsername()))
@@ -40,7 +41,10 @@ public class BidService {
         }
 
         Bid newBid = new Bid(bidRequestDto, users, auction);
+        auction.setBidSize();
+
         bidRepository.save(newBid);
+        auctionRepository.save(auction);
         return ResponseEntity.ok("입찰 성공");
     }
 }
