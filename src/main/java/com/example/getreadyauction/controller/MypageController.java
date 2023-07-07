@@ -21,12 +21,12 @@ public class MypageController {
     private final MyPageService myPageService;
 
     @GetMapping("/auction")
-    public ResponseEntity<List<AuctionResponseDto>> myAuctions(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<List<AuctionResponseDto>> getAllMyAuctions(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return myPageService.getAllMyAuctions(pageable, userDetails.getUser());
     }
 
     @GetMapping("/bidding")
-    public ResponseEntity<List<AuctionResponseDto>> myBid(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<List<AuctionResponseDto>> getAllMyBids(Pageable pageable, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return myPageService.getAllMyBids(pageable, userDetails.getUser());
     }
 }
