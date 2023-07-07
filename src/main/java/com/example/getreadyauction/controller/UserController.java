@@ -7,8 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody LoginRequestDto loginRequestDto, BindingResult bindingResult, HttpServletResponse response) {
-        if (bindingResult.hasErrors()) {
-            StringBuilder st = new StringBuilder();
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                st.append(fieldError.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(st.toString());
-        }
+    public ResponseEntity<Object> login(@Valid @RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
         return userService.login(loginRequestDto, response);
     }
 }
