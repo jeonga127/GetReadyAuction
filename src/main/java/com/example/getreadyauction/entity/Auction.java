@@ -1,7 +1,6 @@
 package com.example.getreadyauction.entity;
 
 import com.example.getreadyauction.dto.auction.AuctionRequestDto;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,8 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +22,7 @@ public class Auction extends Timestamped {
     private String title;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private CategoryType category;
 
     @Column(nullable = false)

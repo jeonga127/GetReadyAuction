@@ -34,7 +34,7 @@ class BidRepositoryTest {
     private AuctionRepository auctionRepository;
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         bidRepository.deleteAllInBatch();
         auctionRepository.deleteAllInBatch();
         usersRepository.deleteAllInBatch();
@@ -123,7 +123,25 @@ class BidRepositoryTest {
 
     @Test
     @DisplayName("특정 유저에 대한 모든 입찰 내역 조회")
-    void findAllByUserOrderByModifiedAtDesc(){
+    void findAllByUserOrderByModifiedAtDesc() {
+        //given
+        Users testUser1 = new Users("testname1", "@testPassword1");
+        Users testOwner = new Users("testOwner", "@testPassword5");
+        usersRepository.saveAll(List.of(testUser1, testOwner));
 
+        AuctionRequestDto testAuctionRequestDto = AuctionRequestDto.builder()
+                .title("testAuction")
+                .category(CategoryType.FURNITURE)
+                .content("쇼파")
+                .minPrice(13000)
+                .deadline("2000-01-01")
+                .build();
+
+        Auction testAuction = Auction.builder().auctionRequestDto(testAuctionRequestDto).user(testOwner).build();
+        auctionRepository.save(testAuction);
+
+        //when
+
+        //then
     }
 }
