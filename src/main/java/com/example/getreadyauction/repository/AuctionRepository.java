@@ -12,7 +12,5 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
     Page<Auction> findAllByCategoryOrderByModifiedAtDesc(Pageable pageable, CategoryType category);
     Page<Auction> findAllByTitleContainingOrderByModifiedAtDesc(Pageable pageable, String title);
     Page<Auction> findAllByUserOrderByModifiedAtDesc(Pageable pageable, Users user);
-    Page<Auction>findAllByIsDoneOrderByViewsDesc(boolean isDone, Pageable pageable);
-    Page<Auction> findAllByIsDoneOrderByDeadlineAsc(boolean isDone, Pageable pageable);
-    Page<Auction> findAllByIsDoneOrderByBidSizeDesc(boolean isDone, Pageable pageable);
+    Page<Auction> findAllBySuccessBidAndIsDoneOrderByModifiedAtDesc(Pageable pageable, String username, boolean isDone);
 }

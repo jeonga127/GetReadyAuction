@@ -76,7 +76,7 @@ class BidControllerTest {
         BidRequestDto bidRequestDto = new BidRequestDto(25000);
 
         //when & then
-        mockMvc.perform(post("/bid/add/{bidId}", 1L)
+        mockMvc.perform(post("/bid/{bidId}", 1L)
                         .content(objectMapper.writeValueAsString(bidRequestDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

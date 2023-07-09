@@ -17,7 +17,7 @@ public class BidController {
 
     private final BidService bidService;
 
-    @PostMapping("/bid/add/{bidId}")
+    @PostMapping("/bid/{bidId}")
     public ResponseEntity<String> postBid(@PathVariable("bidId") Long bidId, @RequestBody BidRequestDto bidRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return bidService.postBid(bidId, bidRequestDto, userDetails.getUser());
     }

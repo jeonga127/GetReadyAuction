@@ -96,7 +96,7 @@ class MypageControllerTest {
         when(myPageService.getAllMyBids(Mockito.any(Pageable.class), Mockito.any(Users.class))).thenReturn(testResult);
 
         //when & then
-        mockMvc.perform(get("/mypage/bidding")
+        mockMvc.perform(get("/mypage/bid")
                         .param("page", "0")
                         .param("size", "5")
                         .with(user(userDetails)))

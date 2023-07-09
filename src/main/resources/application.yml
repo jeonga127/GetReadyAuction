@@ -16,6 +16,10 @@ jwt:
   secret:
     key: 7ZWt7ZW0OTntmZTsnbTtjIXtlZzqta3snYTrhIjrqLjshLjqs4TroZzrgpjslYTqsIDsnpDtm4zrpa3tlZzqsJzrsJzsnpDrpbzrp4zrk6TslrTqsIDsnpA
 
+kakao:
+  admin:
+    key: 9679f2051bc1eaed43822118493bb8c3
+
 ---
 spring:
   config:

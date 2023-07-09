@@ -50,6 +50,7 @@ public class Auction extends Timestamped {
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
+    @Column(nullable = false)
     private String successBid;
 
     @Builder
