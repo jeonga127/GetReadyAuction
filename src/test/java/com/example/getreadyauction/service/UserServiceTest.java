@@ -1,14 +1,15 @@
 package com.example.getreadyauction.service;
 
-import com.example.getreadyauction.dto.ResponseDto;
-import com.example.getreadyauction.dto.user.LoginRequestDto;
-import com.example.getreadyauction.dto.user.LoginResponseDto;
-import com.example.getreadyauction.dto.user.SignupRequestDto;
-import com.example.getreadyauction.entity.ErrorCode;
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.dto.LoginRequestDto;
+import com.example.getreadyauction.domain.user.dto.LoginResponseDto;
+import com.example.getreadyauction.domain.user.dto.SignupRequestDto;
+import com.example.getreadyauction.domain.user.service.UserService;
+import com.example.getreadyauction.exception.ErrorCode;
+import com.example.getreadyauction.domain.user.entity.Users;
 import com.example.getreadyauction.exception.CustomException;
-import com.example.getreadyauction.jwt.JwtUtil;
-import com.example.getreadyauction.repository.UsersRepository;
+import com.example.getreadyauction.security.jwt.JwtUtil;
+import com.example.getreadyauction.domain.user.repository.UsersRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,8 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
 
-@ExtendWith({MockitoExtension.class})
 @ActiveProfiles("test")
+@MockBean(SchedulerService.class)
+@ExtendWith({MockitoExtension.class})
 class UserServiceTest {
 
     @InjectMocks

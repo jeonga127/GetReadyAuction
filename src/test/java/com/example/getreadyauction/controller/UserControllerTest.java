@@ -1,12 +1,10 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.auction.AuctionRequestDto;
-import com.example.getreadyauction.dto.user.LoginRequestDto;
-import com.example.getreadyauction.dto.user.LoginResponseDto;
-import com.example.getreadyauction.dto.user.SignupRequestDto;
-import com.example.getreadyauction.entity.Users;
-import com.example.getreadyauction.security.UserDetailsImpl;
-import com.example.getreadyauction.service.UserService;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.dto.LoginRequestDto;
+import com.example.getreadyauction.domain.user.dto.LoginResponseDto;
+import com.example.getreadyauction.domain.user.dto.SignupRequestDto;
+import com.example.getreadyauction.domain.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -32,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@MockBean(SchedulerService.class)
 @ExtendWith(SpringExtension.class)
 class UserControllerTest {
 

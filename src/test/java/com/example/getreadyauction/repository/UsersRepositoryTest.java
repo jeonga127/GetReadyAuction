@@ -1,18 +1,22 @@
 package com.example.getreadyauction.repository;
 
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.repository.UsersRepository;
+import com.example.getreadyauction.domain.user.entity.Users;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@ActiveProfiles("test")
 @DataJpaTest
+@ActiveProfiles("test")
+@MockBean(SchedulerService.class)
 class UsersRepositoryTest {
 
     @Autowired

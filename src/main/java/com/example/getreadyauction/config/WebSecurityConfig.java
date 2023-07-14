@@ -1,6 +1,6 @@
 package com.example.getreadyauction.config;
 
-import com.example.getreadyauction.jwt.JwtAuthenticationFilter;
+import com.example.getreadyauction.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

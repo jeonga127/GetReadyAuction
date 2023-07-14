@@ -1,30 +1,35 @@
 package com.example.getreadyauction.service;
 
-import com.example.getreadyauction.dto.BidRequestDto;
-import com.example.getreadyauction.dto.auction.AuctionRequestDto;
-import com.example.getreadyauction.entity.Auction;
-import com.example.getreadyauction.entity.Bid;
-import com.example.getreadyauction.entity.CategoryType;
-import com.example.getreadyauction.entity.Users;
-import com.example.getreadyauction.repository.AuctionRepository;
-import com.example.getreadyauction.repository.BidRepository;
-import com.example.getreadyauction.repository.UsersRepository;
+import com.example.getreadyauction.domain.bid.dto.BidRequestDto;
+import com.example.getreadyauction.domain.auction.dto.AuctionRequestDto;
+import com.example.getreadyauction.domain.auction.entity.Auction;
+import com.example.getreadyauction.domain.bid.entity.Bid;
+import com.example.getreadyauction.domain.auction.entity.CategoryType;
+import com.example.getreadyauction.domain.bid.service.BidService;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.entity.Users;
+import com.example.getreadyauction.domain.auction.repository.AuctionRepository;
+import com.example.getreadyauction.domain.bid.repository.BidRepository;
+import com.example.getreadyauction.domain.user.repository.UsersRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles("test")
 @SpringBootTest
+@ActiveProfiles("test")
+@MockBean(SchedulerService.class)
 class BidServiceTest {
 
     @Autowired
@@ -54,7 +59,7 @@ class BidServiceTest {
                 .category(CategoryType.FURNITURE)
                 .content("쇼파")
                 .minPrice(13000)
-                .deadline("2000년 01월 01일 00시 00분 00초")
+                .deadline(LocalDateTime.parse("2000-01-01T00:00:00"))
                 .build();
 
         testAuction = Auction.builder().auctionRequestDto(testAuctionRequestDto).user(testUser1).build();

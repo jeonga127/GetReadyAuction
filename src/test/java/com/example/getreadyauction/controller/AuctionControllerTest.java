@@ -1,18 +1,17 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.BidRequestDto;
-import com.example.getreadyauction.dto.auction.AuctionAllResponseDto;
-import com.example.getreadyauction.dto.auction.AuctionRequestDto;
-import com.example.getreadyauction.dto.auction.AuctionResponseDto;
-import com.example.getreadyauction.entity.Auction;
-import com.example.getreadyauction.entity.Bid;
-import com.example.getreadyauction.entity.CategoryType;
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.domain.bid.dto.BidRequestDto;
+import com.example.getreadyauction.domain.auction.dto.AuctionAllResponseDto;
+import com.example.getreadyauction.domain.auction.dto.AuctionRequestDto;
+import com.example.getreadyauction.domain.auction.dto.AuctionResponseDto;
+import com.example.getreadyauction.domain.auction.entity.Auction;
+import com.example.getreadyauction.domain.bid.entity.Bid;
+import com.example.getreadyauction.domain.auction.entity.CategoryType;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.entity.Users;
 import com.example.getreadyauction.security.UserDetailsImpl;
-import com.example.getreadyauction.service.AuctionService;
+import com.example.getreadyauction.domain.auction.service.AuctionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +29,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@MockBean(SchedulerService.class)
 @ExtendWith(SpringExtension.class)
 class AuctionControllerTest {
 
@@ -68,7 +69,7 @@ class AuctionControllerTest {
                 .category(CategoryType.FURNITURE)
                 .content("쇼파")
                 .minPrice(13000)
-                .deadline("2000년 01월 01일 00시 00분 00초")
+                .deadline(LocalDateTime.parse("2000-01-01T00:00:01"))
                 .build();
 
         testAuction = Auction.builder()
@@ -99,7 +100,7 @@ class AuctionControllerTest {
                 .andExpect(jsonPath("$[0].title").value(testAuction.getTitle()))
                 .andExpect(jsonPath("$[0].category").value(testAuction.getCategory().getText()))
                 .andExpect(jsonPath("$[0].currentPrice").value(testAuction.getCurrentPrice()))
-                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline()));
+                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline().toString()));
     }
 
     @Test
@@ -125,7 +126,7 @@ class AuctionControllerTest {
                 .andExpect(jsonPath("$[0].title").value(testAuction.getTitle()))
                 .andExpect(jsonPath("$[0].category").value(testAuction.getCategory().getText()))
                 .andExpect(jsonPath("$[0].currentPrice").value(testAuction.getCurrentPrice()))
-                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline()));
+                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline().toString()));
     }
 
     @Test
@@ -151,7 +152,7 @@ class AuctionControllerTest {
                 .andExpect(jsonPath("$[0].title").value(testAuction.getTitle()))
                 .andExpect(jsonPath("$[0].category").value(testAuction.getCategory().getText()))
                 .andExpect(jsonPath("$[0].currentPrice").value(testAuction.getCurrentPrice()))
-                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline()));
+                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline().toString()));
     }
 
     @Test
@@ -180,7 +181,7 @@ class AuctionControllerTest {
                 .andExpect(jsonPath("$.username").value(testAuction.getUser().getUsername()))
                 .andExpect(jsonPath("$.content").value(testAuction.getContent()))
                 .andExpect(jsonPath("$.successBid").value(testAuction.getSuccessBid()))
-                .andExpect(jsonPath("$.deadline").value(testAuction.getDeadline()))
+                .andExpect(jsonPath("$.deadline").value(testAuction.getDeadline().toString()))
                 .andExpect(jsonPath("$.modifiedAt").value(testAuction.getModifiedAt()))
                 .andExpect(jsonPath("$.bidList[0].user.username").value(testBid.getUser().getUsername()))
                 .andExpect(jsonPath("$.bidList[0].price").value(testBid.getPrice()))

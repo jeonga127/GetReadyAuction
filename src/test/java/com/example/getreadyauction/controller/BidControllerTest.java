@@ -1,16 +1,11 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.BidRequestDto;
-import com.example.getreadyauction.dto.auction.AuctionRequestDto;
-import com.example.getreadyauction.entity.Auction;
-import com.example.getreadyauction.entity.Bid;
-import com.example.getreadyauction.entity.CategoryType;
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.domain.bid.dto.BidRequestDto;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.entity.Users;
 import com.example.getreadyauction.security.UserDetailsImpl;
-import com.example.getreadyauction.service.AuctionService;
-import com.example.getreadyauction.service.BidService;
+import com.example.getreadyauction.domain.bid.service.BidService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -36,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@MockBean(SchedulerService.class)
 @ExtendWith(SpringExtension.class)
 class BidControllerTest {
 
@@ -60,7 +55,7 @@ class BidControllerTest {
         when(bidService.postBid(Mockito.anyLong(), Mockito.any(BidRequestDto.class), Mockito.any(Users.class))).thenReturn(testResult);
 
         //when & then
-        mockMvc.perform(post("/bid/add/{bidId}", 1L)
+        mockMvc.perform(post("/bid/{bidId}", 1L)
                         .content(objectMapper.writeValueAsString(bidRequestDto))
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(userDetails)))

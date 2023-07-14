@@ -1,12 +1,13 @@
 package com.example.getreadyauction.controller;
 
-import com.example.getreadyauction.dto.auction.AuctionRequestDto;
-import com.example.getreadyauction.dto.auction.AuctionResponseDto;
-import com.example.getreadyauction.entity.Auction;
-import com.example.getreadyauction.entity.CategoryType;
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.domain.auction.dto.AuctionRequestDto;
+import com.example.getreadyauction.domain.auction.dto.AuctionResponseDto;
+import com.example.getreadyauction.domain.auction.entity.Auction;
+import com.example.getreadyauction.domain.auction.entity.CategoryType;
+import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
+import com.example.getreadyauction.domain.user.entity.Users;
 import com.example.getreadyauction.security.UserDetailsImpl;
-import com.example.getreadyauction.service.MyPageService;
+import com.example.getreadyauction.domain.mypage.service.MyPageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -34,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@MockBean(SchedulerService.class)
 @ExtendWith(SpringExtension.class)
 class MypageControllerTest {
 
@@ -57,7 +60,7 @@ class MypageControllerTest {
                 .category(CategoryType.FURNITURE)
                 .content("쇼파")
                 .minPrice(13000)
-                .deadline("2000년 01월 01일 00시 00분 00초")
+                .deadline(LocalDateTime.parse("2000-01-01T00:00:01"))
                 .build();
 
         testAuction = Auction.builder()
@@ -86,7 +89,7 @@ class MypageControllerTest {
                 .andExpect(jsonPath("$[0].title").value(testAuction.getTitle()))
                 .andExpect(jsonPath("$[0].category").value(testAuction.getCategory().getText()))
                 .andExpect(jsonPath("$[0].currentPrice").value(testAuction.getCurrentPrice()))
-                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline()));
+                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline().toString()));
     }
 
     @Test
@@ -106,6 +109,6 @@ class MypageControllerTest {
                 .andExpect(jsonPath("$[0].title").value(testAuction.getTitle()))
                 .andExpect(jsonPath("$[0].category").value(testAuction.getCategory().getText()))
                 .andExpect(jsonPath("$[0].currentPrice").value(testAuction.getCurrentPrice()))
-                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline()));
+                .andExpect(jsonPath("$[0].deadline").value(testAuction.getDeadline().toString()));
     }
 }

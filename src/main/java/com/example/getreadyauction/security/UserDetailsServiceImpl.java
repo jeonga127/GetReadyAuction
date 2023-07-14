@@ -1,9 +1,9 @@
 package com.example.getreadyauction.security;
 
-import com.example.getreadyauction.entity.ErrorCode;
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.exception.ErrorCode;
+import com.example.getreadyauction.domain.user.entity.Users;
 import com.example.getreadyauction.exception.CustomException;
-import com.example.getreadyauction.repository.UsersRepository;
+import com.example.getreadyauction.domain.user.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

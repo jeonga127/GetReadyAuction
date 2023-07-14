@@ -1,6 +1,6 @@
 package com.example.getreadyauction.security;
 
-import com.example.getreadyauction.entity.Users;
+import com.example.getreadyauction.domain.user.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
