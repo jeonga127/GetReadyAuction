@@ -1,4 +1,4 @@
-package com.example.getreadyauction.repository;
+package com.example.getreadyauction.domain.user.repository;
 
 import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
 import com.example.getreadyauction.domain.user.repository.UsersRepository;

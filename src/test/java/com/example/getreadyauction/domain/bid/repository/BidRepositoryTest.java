@@ -1,4 +1,4 @@
-package com.example.getreadyauction.repository;
+package com.example.getreadyauction.domain.bid.repository;
 
 import com.example.getreadyauction.domain.auction.repository.AuctionRepository;
 import com.example.getreadyauction.domain.bid.repository.BidRepository;

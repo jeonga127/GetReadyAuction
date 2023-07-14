@@ -1,4 +1,4 @@
-package com.example.getreadyauction.controller;
+package com.example.getreadyauction.domain.user.controller;
 
 import com.example.getreadyauction.domain.scheduler.service.SchedulerService;
 import com.example.getreadyauction.domain.user.dto.LoginRequestDto;

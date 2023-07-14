@@ -1,4 +1,4 @@
-package com.example.getreadyauction.service;
+package com.example.getreadyauction.domain.mypage.service;
 
 import com.example.getreadyauction.domain.bid.dto.BidRequestDto;
 import com.example.getreadyauction.domain.auction.dto.AuctionRequestDto;

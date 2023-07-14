@@ -1,4 +1,4 @@
-package com.example.getreadyauction.controller;
+package com.example.getreadyauction.domain.bid.controller;
 
 import com.example.getreadyauction.domain.bid.dto.BidRequestDto;
 import com.example.getreadyauction.domain.scheduler.service.SchedulerService;

@@ -1,4 +1,4 @@
-package com.example.getreadyauction.service;
+package com.example.getreadyauction.domain.util.service;
 
 import com.example.getreadyauction.domain.auction.dto.AuctionRequestDto;
 import com.example.getreadyauction.domain.auction.entity.Auction;

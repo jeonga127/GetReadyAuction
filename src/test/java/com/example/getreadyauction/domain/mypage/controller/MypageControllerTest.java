@@ -1,4 +1,4 @@
-package com.example.getreadyauction.controller;
+package com.example.getreadyauction.domain.mypage.controller;
 
 import com.example.getreadyauction.domain.auction.dto.AuctionRequestDto;
 import com.example.getreadyauction.domain.auction.dto.AuctionResponseDto;

@@ -1,4 +1,4 @@
-package com.example.getreadyauction.service;
+package com.example.getreadyauction.domain.auction.service;
 
 import com.example.getreadyauction.domain.auction.entity.Auction;
 import com.example.getreadyauction.domain.auction.entity.CategoryType;
